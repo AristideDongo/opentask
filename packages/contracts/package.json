@@ -1,0 +1,25 @@
+{
+  "name": "@opentask/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint src scripts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "openapi": "tsx scripts/write-openapi.ts"
+  },
+  "dependencies": {
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@opentask/config-typescript": "workspace:*",
+    "@types/node": "24.19.2",
+    "tsx": "4.23.15",
+    "vitest": "4.1.11"
+  }
+}

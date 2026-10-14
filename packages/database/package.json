@@ -1,0 +1,28 @@
+{
+  "name": "@opentask/database",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "dotenv": "17.2.3",
+    "pg": "8.23.1",
+    "prisma": "7.10.0"
+  },
+  "devDependencies": {
+    "@opentask/config-typescript": "workspace:*",
+    "@types/node": "24.19.2"
+  }
+}

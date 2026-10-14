@@ -1,0 +1,9 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Seuls ces paquets peuvent exécuter des scripts d’installation (binaire natif, client Prisma).
+allowBuilds:
+  esbuild: true
+  prisma: true
+  '@prisma/engines': true

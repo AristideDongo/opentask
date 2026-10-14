@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+dist
+build
+.react-router
+apps/api/src/generated
+apps/api/prisma/migrations
+opentask-specification-projet-open-source.md
+LICENSE
+.agents

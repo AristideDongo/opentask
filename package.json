@@ -1,0 +1,36 @@
+{
+  "name": "opentask",
+  "private": true,
+  "type": "module",
+  "description": "OpenTask — gestion du travail open source, gratuite et auto-hébergeable",
+  "license": "AGPL-3.0-only",
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "pnpm --filter @opentask/web test:e2e",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:up": "docker compose up -d postgres mailpit",
+    "db:generate": "pnpm --filter @opentask/database db:generate",
+    "db:migrate": "pnpm --filter @opentask/database db:migrate",
+    "db:migrate:dev": "pnpm --filter @opentask/database db:migrate:dev",
+    "openapi": "pnpm --filter @opentask/contracts openapi"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "16.5.0",
+    "prettier": "3.9.10",
+    "turbo": "2.11.7",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1"
+  }
+}

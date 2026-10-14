@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/atkinson-hyperlegible-next/wght.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * Jetons de design OpenTask.
+ * Base gris-vert froide, encre vert-noir, accent « pin » pour les actions principales.
+ * Les contrastes texte/fond respectent WCAG AA dans les deux thèmes.
+ */
+:root {
+  --bg: #f4f6f4;
+  --surface: #ffffff;
+  --sunken: #eaeeeb;
+  --ink: #18211d;
+  --muted: #56625c;
+  --line: #d6ddd8;
+  --accent: #1f6f5c;
+  --accent-hover: #185a4a;
+  --accent-ink: #ffffff;
+  --accent-soft: #dcefe8;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --focus: #1f6f5c;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #111614;
+  --surface: #182019;
+  --sunken: #0c100e;
+  --ink: #e6ece8;
+  --muted: #9aa8a1;
+  --line: #2a352f;
+  --accent: #5fbfa2;
+  --accent-hover: #7fd2b8;
+  --accent-ink: #0b1a14;
+  --accent-soft: #1b3a30;
+  --danger: #f2877d;
+  --danger-soft: #3a1714;
+  --focus: #7fd2b8;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: 'Atkinson Hyperlegible Next Variable', ui-sans-serif, system-ui, sans-serif;
+  --radius-control: 6px;
+  --radius-panel: 10px;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

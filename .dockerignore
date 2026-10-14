@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/build
+**/.turbo
+**/.react-router
+**/test-results
+**/playwright-report
+packages/database/src/generated
+.env
+.env.*
+!.env.example
+.git
+backups
+.agents
+SKILL*.md
+skills-lock.json
+opentask-specification-projet-open-source.md
