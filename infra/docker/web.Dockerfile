@@ -11,7 +11,7 @@ ARG SOURCE_URL=""
 ENV VITE_SOURCE_URL=$SOURCE_URL
 RUN pnpm --filter @opentask/web build
 
-FROM nginx:1.29-alpine AS runtime
+FROM nginx:1.31-alpine AS runtime
 COPY infra/docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /repo/apps/web/build/client /usr/share/nginx/html
 EXPOSE 8080
