@@ -33,7 +33,7 @@
     "@axe-core/playwright": "4.13.0",
     "@opentask/config-typescript": "workspace:*",
     "@playwright/test": "1.64.0",
-    "@react-router/dev": "7.18.4",
+    "@react-router/dev": "8.4.0",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "24.19.2",
     "@types/pg": "8.23.1",
