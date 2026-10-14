@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Interface web OpenTask : fichiers statiques servis par nginx, qui relaie /api vers l’API.
 #   docker build -f infra/docker/web.Dockerfile -t opentask-web .
-FROM node:24-alpine AS build
+FROM node:26-alpine AS build
 RUN npm install -g pnpm@12.3.4
 WORKDIR /repo
 COPY . .
