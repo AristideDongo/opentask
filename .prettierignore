@@ -7,3 +7,4 @@ apps/api/prisma/migrations
 opentask-specification-projet-open-source.md
 LICENSE
 .agents
+docs/api/openapi.json

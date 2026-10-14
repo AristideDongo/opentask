@@ -58,7 +58,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["path", "message"],
+                  "required": [
+                    "path",
+                    "message"
+                  ],
                   "additionalProperties": false
                 }
               },
@@ -66,11 +69,16 @@
                 "type": "string"
               }
             },
-            "required": ["code", "message"],
+            "required": [
+              "code",
+              "message"
+            ],
             "additionalProperties": false
           }
         },
-        "required": ["error"],
+        "required": [
+          "error"
+        ],
         "additionalProperties": false
       }
     }
@@ -80,7 +88,9 @@
       "post": {
         "operationId": "register",
         "summary": "Créer un compte",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [],
         "parameters": [],
         "requestBody": {
@@ -104,7 +114,11 @@
                     "maxLength": 128
                   }
                 },
-                "required": ["name", "email", "password"]
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ]
               }
             }
           }
@@ -160,7 +174,9 @@
       "post": {
         "operationId": "login",
         "summary": "Se connecter",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [],
         "parameters": [],
         "requestBody": {
@@ -179,7 +195,10 @@
                     "maxLength": 128
                   }
                 },
-                "required": ["email", "password"]
+                "required": [
+                  "email",
+                  "password"
+                ]
               }
             }
           }
@@ -235,7 +254,9 @@
       "post": {
         "operationId": "logout",
         "summary": "Se déconnecter",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [
           {
             "session": []
@@ -303,7 +324,9 @@
       "post": {
         "operationId": "requestPasswordReset",
         "summary": "Demander un lien de réinitialisation",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [],
         "parameters": [],
         "requestBody": {
@@ -320,7 +343,9 @@
                     "type": "string"
                   }
                 },
-                "required": ["email"]
+                "required": [
+                  "email"
+                ]
               }
             }
           }
@@ -376,7 +401,9 @@
       "post": {
         "operationId": "resetPassword",
         "summary": "Définir un nouveau mot de passe",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [],
         "parameters": [],
         "requestBody": {
@@ -396,7 +423,10 @@
                     "maxLength": 128
                   }
                 },
-                "required": ["token", "newPassword"]
+                "required": [
+                  "token",
+                  "newPassword"
+                ]
               }
             }
           }
@@ -452,7 +482,9 @@
       "get": {
         "operationId": "verifyEmail",
         "summary": "Vérifier une adresse e-mail (lien reçu par e-mail)",
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "security": [],
         "parameters": [],
         "responses": {
@@ -506,7 +538,9 @@
       "get": {
         "operationId": "getMe",
         "summary": "Profil de l’utilisateur connecté",
-        "tags": ["me"],
+        "tags": [
+          "me"
+        ],
         "security": [
           {
             "session": []
@@ -541,7 +575,10 @@
                     },
                     "locale": {
                       "type": "string",
-                      "enum": ["fr", "en"]
+                      "enum": [
+                        "fr",
+                        "en"
+                      ]
                     },
                     "timezone": {
                       "type": "string"
@@ -616,7 +653,9 @@
       "patch": {
         "operationId": "updateMe",
         "summary": "Modifier son profil",
-        "tags": ["me"],
+        "tags": [
+          "me"
+        ],
         "security": [
           {
             "session": []
@@ -637,7 +676,10 @@
                   },
                   "locale": {
                     "type": "string",
-                    "enum": ["fr", "en"]
+                    "enum": [
+                      "fr",
+                      "en"
+                    ]
                   },
                   "timezone": {
                     "type": "string",
@@ -676,7 +718,10 @@
                     },
                     "locale": {
                       "type": "string",
-                      "enum": ["fr", "en"]
+                      "enum": [
+                        "fr",
+                        "en"
+                      ]
                     },
                     "timezone": {
                       "type": "string"
@@ -753,7 +798,9 @@
       "get": {
         "operationId": "listWorkspaces",
         "summary": "Workspaces dont je suis membre",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -783,7 +830,12 @@
                           },
                           "myRole": {
                             "type": "string",
-                            "enum": ["owner", "admin", "member", "guest"]
+                            "enum": [
+                              "owner",
+                              "admin",
+                              "member",
+                              "guest"
+                            ]
                           },
                           "memberCount": {
                             "type": "integer",
@@ -813,7 +865,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -874,7 +928,9 @@
       "post": {
         "operationId": "createWorkspace",
         "summary": "Créer un workspace",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -894,7 +950,9 @@
                     "maxLength": 80
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -917,7 +975,12 @@
                     },
                     "myRole": {
                       "type": "string",
-                      "enum": ["owner", "admin", "member", "guest"]
+                      "enum": [
+                        "owner",
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "memberCount": {
                       "type": "integer",
@@ -935,7 +998,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "myRole", "memberCount", "createdAt", "updatedAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "myRole",
+                    "memberCount",
+                    "createdAt",
+                    "updatedAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -998,7 +1068,9 @@
       "get": {
         "operationId": "getWorkspace",
         "summary": "Détail d’un workspace",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -1032,7 +1104,12 @@
                     },
                     "myRole": {
                       "type": "string",
-                      "enum": ["owner", "admin", "member", "guest"]
+                      "enum": [
+                        "owner",
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "memberCount": {
                       "type": "integer",
@@ -1050,7 +1127,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "myRole", "memberCount", "createdAt", "updatedAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "myRole",
+                    "memberCount",
+                    "createdAt",
+                    "updatedAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1111,7 +1195,9 @@
       "patch": {
         "operationId": "updateWorkspace",
         "summary": "Modifier un workspace (admin)",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -1140,7 +1226,9 @@
                     "maxLength": 80
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -1163,7 +1251,12 @@
                     },
                     "myRole": {
                       "type": "string",
-                      "enum": ["owner", "admin", "member", "guest"]
+                      "enum": [
+                        "owner",
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "memberCount": {
                       "type": "integer",
@@ -1181,7 +1274,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "myRole", "memberCount", "createdAt", "updatedAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "myRole",
+                    "memberCount",
+                    "createdAt",
+                    "updatedAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1242,7 +1342,9 @@
       "delete": {
         "operationId": "deleteWorkspace",
         "summary": "Supprimer définitivement un workspace (propriétaire)",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -1269,7 +1371,9 @@
                     "type": "string"
                   }
                 },
-                "required": ["confirmName"]
+                "required": [
+                  "confirmName"
+                ]
               }
             }
           }
@@ -1335,7 +1439,9 @@
       "post": {
         "operationId": "transferOwnership",
         "summary": "Transférer la propriété",
-        "tags": ["workspaces"],
+        "tags": [
+          "workspaces"
+        ],
         "security": [
           {
             "session": []
@@ -1364,7 +1470,9 @@
                     "maxLength": 64
                   }
                 },
-                "required": ["userId"]
+                "required": [
+                  "userId"
+                ]
               }
             }
           }
@@ -1387,7 +1495,12 @@
                     },
                     "myRole": {
                       "type": "string",
-                      "enum": ["owner", "admin", "member", "guest"]
+                      "enum": [
+                        "owner",
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "memberCount": {
                       "type": "integer",
@@ -1405,7 +1518,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "myRole", "memberCount", "createdAt", "updatedAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "myRole",
+                    "memberCount",
+                    "createdAt",
+                    "updatedAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1468,7 +1588,9 @@
       "get": {
         "operationId": "listMembers",
         "summary": "Membres du workspace",
-        "tags": ["members"],
+        "tags": [
+          "members"
+        ],
         "security": [
           {
             "session": []
@@ -1514,7 +1636,12 @@
                           },
                           "role": {
                             "type": "string",
-                            "enum": ["owner", "admin", "member", "guest"]
+                            "enum": [
+                              "owner",
+                              "admin",
+                              "member",
+                              "guest"
+                            ]
                           },
                           "joinedAt": {
                             "type": "string",
@@ -1522,12 +1649,21 @@
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                           }
                         },
-                        "required": ["userId", "name", "email", "image", "role", "joinedAt"],
+                        "required": [
+                          "userId",
+                          "name",
+                          "email",
+                          "image",
+                          "role",
+                          "joinedAt"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1590,7 +1726,9 @@
       "patch": {
         "operationId": "changeMemberRole",
         "summary": "Changer le rôle d’un membre",
-        "tags": ["members"],
+        "tags": [
+          "members"
+        ],
         "security": [
           {
             "session": []
@@ -1623,10 +1761,16 @@
                 "properties": {
                   "role": {
                     "type": "string",
-                    "enum": ["admin", "member", "guest"]
+                    "enum": [
+                      "admin",
+                      "member",
+                      "guest"
+                    ]
                   }
                 },
-                "required": ["role"]
+                "required": [
+                  "role"
+                ]
               }
             }
           }
@@ -1656,7 +1800,12 @@
                     },
                     "role": {
                       "type": "string",
-                      "enum": ["owner", "admin", "member", "guest"]
+                      "enum": [
+                        "owner",
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "joinedAt": {
                       "type": "string",
@@ -1664,7 +1813,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["userId", "name", "email", "image", "role", "joinedAt"],
+                  "required": [
+                    "userId",
+                    "name",
+                    "email",
+                    "image",
+                    "role",
+                    "joinedAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1725,7 +1881,9 @@
       "delete": {
         "operationId": "removeMember",
         "summary": "Retirer un membre ou quitter le workspace",
-        "tags": ["members"],
+        "tags": [
+          "members"
+        ],
         "security": [
           {
             "session": []
@@ -1810,7 +1968,9 @@
       "get": {
         "operationId": "listInvitations",
         "summary": "Invitations en attente (admin)",
-        "tags": ["invitations"],
+        "tags": [
+          "invitations"
+        ],
         "security": [
           {
             "session": []
@@ -1849,11 +2009,20 @@
                           },
                           "role": {
                             "type": "string",
-                            "enum": ["admin", "member", "guest"]
+                            "enum": [
+                              "admin",
+                              "member",
+                              "guest"
+                            ]
                           },
                           "status": {
                             "type": "string",
-                            "enum": ["pending", "accepted", "revoked", "expired"]
+                            "enum": [
+                              "pending",
+                              "accepted",
+                              "revoked",
+                              "expired"
+                            ]
                           },
                           "invitedBy": {
                             "nullable": true,
@@ -1868,7 +2037,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "expiresAt": {
@@ -1895,7 +2067,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -1956,7 +2130,9 @@
       "post": {
         "operationId": "createInvitation",
         "summary": "Inviter par e-mail (admin)",
-        "tags": ["invitations"],
+        "tags": [
+          "invitations"
+        ],
         "security": [
           {
             "session": []
@@ -1985,10 +2161,16 @@
                   "role": {
                     "default": "member",
                     "type": "string",
-                    "enum": ["admin", "member", "guest"]
+                    "enum": [
+                      "admin",
+                      "member",
+                      "guest"
+                    ]
                   }
                 },
-                "required": ["email"]
+                "required": [
+                  "email"
+                ]
               }
             }
           }
@@ -2011,11 +2193,20 @@
                     },
                     "role": {
                       "type": "string",
-                      "enum": ["admin", "member", "guest"]
+                      "enum": [
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["pending", "accepted", "revoked", "expired"]
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "revoked",
+                        "expired"
+                      ]
                     },
                     "invitedBy": {
                       "nullable": true,
@@ -2030,7 +2221,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "expiresAt": {
@@ -2121,7 +2315,9 @@
       "delete": {
         "operationId": "revokeInvitation",
         "summary": "Révoquer une invitation (admin)",
-        "tags": ["invitations"],
+        "tags": [
+          "invitations"
+        ],
         "security": [
           {
             "session": []
@@ -2206,7 +2402,9 @@
       "get": {
         "operationId": "previewInvitation",
         "summary": "Aperçu d’une invitation à partir de son lien",
-        "tags": ["invitations"],
+        "tags": [
+          "invitations"
+        ],
         "security": [],
         "parameters": [
           {
@@ -2238,14 +2436,29 @@
                     },
                     "role": {
                       "type": "string",
-                      "enum": ["admin", "member", "guest"]
+                      "enum": [
+                        "admin",
+                        "member",
+                        "guest"
+                      ]
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["pending", "accepted", "revoked", "expired"]
+                      "enum": [
+                        "pending",
+                        "accepted",
+                        "revoked",
+                        "expired"
+                      ]
                     }
                   },
-                  "required": ["workspaceName", "inviterName", "email", "role", "status"],
+                  "required": [
+                    "workspaceName",
+                    "inviterName",
+                    "email",
+                    "role",
+                    "status"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -2298,7 +2511,9 @@
       "post": {
         "operationId": "acceptInvitation",
         "summary": "Accepter une invitation",
-        "tags": ["invitations"],
+        "tags": [
+          "invitations"
+        ],
         "security": [
           {
             "session": []
@@ -2339,7 +2554,9 @@
                       "maxLength": 64
                     }
                   },
-                  "required": ["workspaceId"],
+                  "required": [
+                    "workspaceId"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -2402,7 +2619,9 @@
       "get": {
         "operationId": "listAuditLogs",
         "summary": "Journal d’audit (admin)",
-        "tags": ["audit"],
+        "tags": [
+          "audit"
+        ],
         "security": [
           {
             "session": []
@@ -2489,7 +2708,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "targetType": {
@@ -2526,7 +2748,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["items", "nextCursor"],
+                  "required": [
+                    "items",
+                    "nextCursor"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -2589,7 +2814,9 @@
       "get": {
         "operationId": "listTeams",
         "summary": "Équipes du workspace",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -2643,7 +2870,10 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["id", "name"],
+                              "required": [
+                                "id",
+                                "name"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -2670,7 +2900,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -2731,7 +2963,9 @@
       "post": {
         "operationId": "createTeam",
         "summary": "Créer une équipe (admin)",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -2775,7 +3009,9 @@
                     }
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -2813,7 +3049,10 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -2828,7 +3067,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "description", "members", "projectCount", "createdAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "members",
+                    "projectCount",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -2891,7 +3137,9 @@
       "get": {
         "operationId": "getTeam",
         "summary": "Détail d’une équipe",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -2948,7 +3196,10 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -2963,7 +3214,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "description", "members", "projectCount", "createdAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "members",
+                    "projectCount",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3024,7 +3282,9 @@
       "patch": {
         "operationId": "updateTeam",
         "summary": "Modifier une équipe (admin)",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -3102,7 +3362,10 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -3117,7 +3380,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "description", "members", "projectCount", "createdAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "members",
+                    "projectCount",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3178,7 +3448,9 @@
       "delete": {
         "operationId": "deleteTeam",
         "summary": "Supprimer une équipe (admin)",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -3263,7 +3535,9 @@
       "put": {
         "operationId": "addTeamMember",
         "summary": "Ajouter un membre à l’équipe (admin)",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -3328,7 +3602,10 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -3343,7 +3620,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "description", "members", "projectCount", "createdAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "members",
+                    "projectCount",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3404,7 +3688,9 @@
       "delete": {
         "operationId": "removeTeamMember",
         "summary": "Retirer un membre de l’équipe (admin)",
-        "tags": ["teams"],
+        "tags": [
+          "teams"
+        ],
         "security": [
           {
             "session": []
@@ -3469,7 +3755,10 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -3484,7 +3773,14 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "name", "description", "members", "projectCount", "createdAt"],
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "members",
+                    "projectCount",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3547,7 +3843,9 @@
       "get": {
         "operationId": "listProjects",
         "summary": "Projets du workspace",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -3600,7 +3898,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "labels": {
@@ -3620,7 +3921,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["id", "name", "color"],
+                              "required": [
+                                "id",
+                                "name",
+                                "color"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -3639,14 +3944,24 @@
                                 },
                                 "category": {
                                   "type": "string",
-                                  "enum": ["todo", "in_progress", "in_review", "done"],
+                                  "enum": [
+                                    "todo",
+                                    "in_progress",
+                                    "in_review",
+                                    "done"
+                                  ],
                                   "description": "Type de base : décide si les tâches de la colonne sont terminées"
                                 },
                                 "position": {
                                   "type": "number"
                                 }
                               },
-                              "required": ["id", "name", "category", "position"],
+                              "required": [
+                                "id",
+                                "name",
+                                "category",
+                                "position"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -3657,7 +3972,12 @@
                               "minimum": -9007199254740991,
                               "maximum": 9007199254740991
                             },
-                            "required": ["todo", "in_progress", "in_review", "done"]
+                            "required": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ]
                           },
                           "createdAt": {
                             "type": "string",
@@ -3685,7 +4005,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -3746,7 +4068,9 @@
       "post": {
         "operationId": "createProject",
         "summary": "Créer un projet",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -3787,7 +4111,9 @@
                     "maxLength": 64
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -3824,7 +4150,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -3844,7 +4173,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -3863,14 +4196,24 @@
                           },
                           "category": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de base : décide si les tâches de la colonne sont terminées"
                           },
                           "position": {
                             "type": "number"
                           }
                         },
-                        "required": ["id", "name", "category", "position"],
+                        "required": [
+                          "id",
+                          "name",
+                          "category",
+                          "position"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -3881,7 +4224,12 @@
                         "minimum": -9007199254740991,
                         "maximum": 9007199254740991
                       },
-                      "required": ["todo", "in_progress", "in_review", "done"]
+                      "required": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ]
                     },
                     "createdAt": {
                       "type": "string",
@@ -3967,7 +4315,9 @@
       "get": {
         "operationId": "getProject",
         "summary": "Détail d’un projet",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4023,7 +4373,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -4043,7 +4396,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -4062,14 +4419,24 @@
                           },
                           "category": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de base : décide si les tâches de la colonne sont terminées"
                           },
                           "position": {
                             "type": "number"
                           }
                         },
-                        "required": ["id", "name", "category", "position"],
+                        "required": [
+                          "id",
+                          "name",
+                          "category",
+                          "position"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -4080,7 +4447,12 @@
                         "minimum": -9007199254740991,
                         "maximum": 9007199254740991
                       },
-                      "required": ["todo", "in_progress", "in_review", "done"]
+                      "required": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ]
                     },
                     "createdAt": {
                       "type": "string",
@@ -4164,7 +4536,9 @@
       "patch": {
         "operationId": "updateProject",
         "summary": "Modifier un projet",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4247,7 +4621,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -4267,7 +4644,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -4286,14 +4667,24 @@
                           },
                           "category": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de base : décide si les tâches de la colonne sont terminées"
                           },
                           "position": {
                             "type": "number"
                           }
                         },
-                        "required": ["id", "name", "category", "position"],
+                        "required": [
+                          "id",
+                          "name",
+                          "category",
+                          "position"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -4304,7 +4695,12 @@
                         "minimum": -9007199254740991,
                         "maximum": 9007199254740991
                       },
-                      "required": ["todo", "in_progress", "in_review", "done"]
+                      "required": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ]
                     },
                     "createdAt": {
                       "type": "string",
@@ -4388,7 +4784,9 @@
       "delete": {
         "operationId": "deleteProject",
         "summary": "Supprimer un projet et ses tâches (admin)",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4473,7 +4871,9 @@
       "get": {
         "operationId": "listColumns",
         "summary": "Colonnes du Kanban, dans l’ordre",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4520,19 +4920,31 @@
                           },
                           "category": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de base : décide si les tâches de la colonne sont terminées"
                           },
                           "position": {
                             "type": "number"
                           }
                         },
-                        "required": ["id", "name", "category", "position"],
+                        "required": [
+                          "id",
+                          "name",
+                          "category",
+                          "position"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -4593,7 +5005,9 @@
       "post": {
         "operationId": "createColumn",
         "summary": "Ajouter une colonne",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4632,7 +5046,12 @@
                   "category": {
                     "default": "in_progress",
                     "type": "string",
-                    "enum": ["todo", "in_progress", "in_review", "done"]
+                    "enum": [
+                      "todo",
+                      "in_progress",
+                      "in_review",
+                      "done"
+                    ]
                   },
                   "beforeColumnId": {
                     "default": null,
@@ -4643,7 +5062,9 @@
                     "maxLength": 64
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -4666,14 +5087,24 @@
                     },
                     "category": {
                       "type": "string",
-                      "enum": ["todo", "in_progress", "in_review", "done"],
+                      "enum": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ],
                       "description": "Type de base : décide si les tâches de la colonne sont terminées"
                     },
                     "position": {
                       "type": "number"
                     }
                   },
-                  "required": ["id", "name", "category", "position"],
+                  "required": [
+                    "id",
+                    "name",
+                    "category",
+                    "position"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -4736,7 +5167,9 @@
       "patch": {
         "operationId": "updateColumn",
         "summary": "Renommer, changer le type ou déplacer une colonne",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4782,7 +5215,12 @@
                   },
                   "category": {
                     "type": "string",
-                    "enum": ["todo", "in_progress", "in_review", "done"]
+                    "enum": [
+                      "todo",
+                      "in_progress",
+                      "in_review",
+                      "done"
+                    ]
                   },
                   "beforeColumnId": {
                     "nullable": true,
@@ -4813,14 +5251,24 @@
                     },
                     "category": {
                       "type": "string",
-                      "enum": ["todo", "in_progress", "in_review", "done"],
+                      "enum": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ],
                       "description": "Type de base : décide si les tâches de la colonne sont terminées"
                     },
                     "position": {
                       "type": "number"
                     }
                   },
-                  "required": ["id", "name", "category", "position"],
+                  "required": [
+                    "id",
+                    "name",
+                    "category",
+                    "position"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -4881,7 +5329,9 @@
       "delete": {
         "operationId": "deleteColumn",
         "summary": "Supprimer une colonne (ses tâches vont dans `moveTasksTo`)",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -4993,7 +5443,9 @@
       "get": {
         "operationId": "listLabels",
         "summary": "Tags du projet",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -5042,12 +5494,18 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -5108,7 +5566,9 @@
       "post": {
         "operationId": "createLabel",
         "summary": "Créer un tag (nom et couleur)",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -5149,7 +5609,10 @@
                     "pattern": "^#[0-9a-f]{6}$"
                   }
                 },
-                "required": ["name", "color"]
+                "required": [
+                  "name",
+                  "color"
+                ]
               }
             }
           }
@@ -5174,7 +5637,11 @@
                       "type": "string"
                     }
                   },
-                  "required": ["id", "name", "color"],
+                  "required": [
+                    "id",
+                    "name",
+                    "color"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -5237,7 +5704,9 @@
       "patch": {
         "operationId": "updateLabel",
         "summary": "Renommer ou recolorer un tag",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -5310,7 +5779,11 @@
                       "type": "string"
                     }
                   },
-                  "required": ["id", "name", "color"],
+                  "required": [
+                    "id",
+                    "name",
+                    "color"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -5371,7 +5844,9 @@
       "delete": {
         "operationId": "deleteLabel",
         "summary": "Supprimer un tag (retiré de toutes les tâches)",
-        "tags": ["projects"],
+        "tags": [
+          "projects"
+        ],
         "security": [
           {
             "session": []
@@ -5464,7 +5939,9 @@
       "get": {
         "operationId": "listTasks",
         "summary": "Tâches d’un projet (filtres et tri)",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -5493,7 +5970,12 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["todo", "in_progress", "in_review", "done"]
+              "enum": [
+                "todo",
+                "in_progress",
+                "in_review",
+                "done"
+              ]
             }
           },
           {
@@ -5512,7 +5994,12 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["low", "normal", "high", "urgent"]
+              "enum": [
+                "low",
+                "normal",
+                "high",
+                "urgent"
+              ]
             }
           },
           {
@@ -5528,7 +6015,9 @@
                 },
                 {
                   "type": "string",
-                  "enum": ["none"]
+                  "enum": [
+                    "none"
+                  ]
                 }
               ]
             }
@@ -5559,7 +6048,13 @@
             "schema": {
               "default": "position",
               "type": "string",
-              "enum": ["position", "dueDate", "priority", "createdAt", "title"]
+              "enum": [
+                "position",
+                "dueDate",
+                "priority",
+                "createdAt",
+                "title"
+              ]
             }
           },
           {
@@ -5568,7 +6063,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["true", "false"]
+              "enum": [
+                "true",
+                "false"
+              ]
             }
           }
         ],
@@ -5609,7 +6107,12 @@
                           },
                           "status": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de la colonne courante"
                           },
                           "column": {
@@ -5624,12 +6127,20 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "priority": {
                             "type": "string",
-                            "enum": ["low", "normal", "high", "urgent"]
+                            "enum": [
+                              "low",
+                              "normal",
+                              "high",
+                              "urgent"
+                            ]
                           },
                           "dueDate": {
                             "nullable": true,
@@ -5649,7 +6160,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "createdBy": {
@@ -5665,7 +6179,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "labels": {
@@ -5685,7 +6202,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["id", "name", "color"],
+                              "required": [
+                                "id",
+                                "name",
+                                "color"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -5749,7 +6270,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -5810,7 +6333,9 @@
       "post": {
         "operationId": "createTask",
         "summary": "Créer une tâche ou une sous-tâche",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -5859,12 +6384,22 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": ["todo", "in_progress", "in_review", "done"]
+                    "enum": [
+                      "todo",
+                      "in_progress",
+                      "in_review",
+                      "done"
+                    ]
                   },
                   "priority": {
                     "default": "normal",
                     "type": "string",
-                    "enum": ["low", "normal", "high", "urgent"]
+                    "enum": [
+                      "low",
+                      "normal",
+                      "high",
+                      "urgent"
+                    ]
                   },
                   "dueDate": {
                     "default": null,
@@ -5898,7 +6433,9 @@
                     }
                   }
                 },
-                "required": ["title"]
+                "required": [
+                  "title"
+                ]
               }
             }
           }
@@ -5935,7 +6472,12 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["todo", "in_progress", "in_review", "done"],
+                      "enum": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ],
                       "description": "Type de la colonne courante"
                     },
                     "column": {
@@ -5950,12 +6492,20 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "priority": {
                       "type": "string",
-                      "enum": ["low", "normal", "high", "urgent"]
+                      "enum": [
+                        "low",
+                        "normal",
+                        "high",
+                        "urgent"
+                      ]
                     },
                     "dueDate": {
                       "nullable": true,
@@ -5975,7 +6525,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdBy": {
@@ -5991,7 +6544,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -6011,7 +6567,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -6133,7 +6693,9 @@
       "get": {
         "operationId": "listMyTasks",
         "summary": "Tâches qui me sont assignées",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -6186,7 +6748,12 @@
                           },
                           "status": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de la colonne courante"
                           },
                           "column": {
@@ -6201,12 +6768,20 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "priority": {
                             "type": "string",
-                            "enum": ["low", "normal", "high", "urgent"]
+                            "enum": [
+                              "low",
+                              "normal",
+                              "high",
+                              "urgent"
+                            ]
                           },
                           "dueDate": {
                             "nullable": true,
@@ -6226,7 +6801,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "createdBy": {
@@ -6242,7 +6820,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "labels": {
@@ -6262,7 +6843,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["id", "name", "color"],
+                              "required": [
+                                "id",
+                                "name",
+                                "color"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -6330,7 +6915,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -6393,7 +6980,9 @@
       "get": {
         "operationId": "getTask",
         "summary": "Détail d’une tâche (sous-tâches, commentaires)",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -6449,7 +7038,12 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["todo", "in_progress", "in_review", "done"],
+                      "enum": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ],
                       "description": "Type de la colonne courante"
                     },
                     "column": {
@@ -6464,12 +7058,20 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "priority": {
                       "type": "string",
-                      "enum": ["low", "normal", "high", "urgent"]
+                      "enum": [
+                        "low",
+                        "normal",
+                        "high",
+                        "urgent"
+                      ]
                     },
                     "dueDate": {
                       "nullable": true,
@@ -6489,7 +7091,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdBy": {
@@ -6505,7 +7110,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -6525,7 +7133,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -6595,7 +7207,12 @@
                           },
                           "status": {
                             "type": "string",
-                            "enum": ["todo", "in_progress", "in_review", "done"],
+                            "enum": [
+                              "todo",
+                              "in_progress",
+                              "in_review",
+                              "done"
+                            ],
                             "description": "Type de la colonne courante"
                           },
                           "column": {
@@ -6610,12 +7227,20 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "priority": {
                             "type": "string",
-                            "enum": ["low", "normal", "high", "urgent"]
+                            "enum": [
+                              "low",
+                              "normal",
+                              "high",
+                              "urgent"
+                            ]
                           },
                           "dueDate": {
                             "nullable": true,
@@ -6635,7 +7260,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "createdBy": {
@@ -6651,7 +7279,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "labels": {
@@ -6671,7 +7302,11 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["id", "name", "color"],
+                              "required": [
+                                "id",
+                                "name",
+                                "color"
+                              ],
                               "additionalProperties": false
                             }
                           },
@@ -6757,7 +7392,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "body": {
@@ -6769,7 +7407,12 @@
                             "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                           }
                         },
-                        "required": ["id", "author", "body", "createdAt"],
+                        "required": [
+                          "id",
+                          "author",
+                          "body",
+                          "createdAt"
+                        ],
                         "additionalProperties": false
                       }
                     }
@@ -6858,7 +7501,9 @@
       "patch": {
         "operationId": "updateTask",
         "summary": "Modifier ou déplacer une tâche",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -6905,12 +7550,22 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": ["todo", "in_progress", "in_review", "done"],
+                    "enum": [
+                      "todo",
+                      "in_progress",
+                      "in_review",
+                      "done"
+                    ],
                     "description": "Déplace vers la première colonne de ce type"
                   },
                   "priority": {
                     "type": "string",
-                    "enum": ["low", "normal", "high", "urgent"]
+                    "enum": [
+                      "low",
+                      "normal",
+                      "high",
+                      "urgent"
+                    ]
                   },
                   "dueDate": {
                     "nullable": true,
@@ -6977,7 +7632,12 @@
                     },
                     "status": {
                       "type": "string",
-                      "enum": ["todo", "in_progress", "in_review", "done"],
+                      "enum": [
+                        "todo",
+                        "in_progress",
+                        "in_review",
+                        "done"
+                      ],
                       "description": "Type de la colonne courante"
                     },
                     "column": {
@@ -6992,12 +7652,20 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "priority": {
                       "type": "string",
-                      "enum": ["low", "normal", "high", "urgent"]
+                      "enum": [
+                        "low",
+                        "normal",
+                        "high",
+                        "urgent"
+                      ]
                     },
                     "dueDate": {
                       "nullable": true,
@@ -7017,7 +7685,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdBy": {
@@ -7033,7 +7704,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "labels": {
@@ -7053,7 +7727,11 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name", "color"],
+                        "required": [
+                          "id",
+                          "name",
+                          "color"
+                        ],
                         "additionalProperties": false
                       }
                     },
@@ -7173,7 +7851,9 @@
       "delete": {
         "operationId": "deleteTask",
         "summary": "Supprimer une tâche (auteur ou admin)",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -7258,7 +7938,9 @@
       "post": {
         "operationId": "commentTask",
         "summary": "Commenter une tâche",
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "security": [
           {
             "session": []
@@ -7295,7 +7977,9 @@
                     "maxLength": 4000
                   }
                 },
-                "required": ["body"]
+                "required": [
+                  "body"
+                ]
               }
             }
           }
@@ -7326,7 +8010,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "body": {
@@ -7338,7 +8025,12 @@
                       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
                     }
                   },
-                  "required": ["id", "author", "body", "createdAt"],
+                  "required": [
+                    "id",
+                    "author",
+                    "body",
+                    "createdAt"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -7401,7 +8093,9 @@
       "get": {
         "operationId": "listChannels",
         "summary": "Canaux accessibles, avec messages non lus",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -7468,7 +8162,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "createdAt": {
@@ -7492,7 +8189,9 @@
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -7553,7 +8252,9 @@
       "post": {
         "operationId": "createChannel",
         "summary": "Créer un canal public ou privé",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -7601,7 +8302,9 @@
                     }
                   }
                 },
-                "required": ["name"]
+                "required": [
+                  "name"
+                ]
               }
             }
           }
@@ -7652,7 +8355,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdAt": {
@@ -7734,7 +8440,9 @@
       "get": {
         "operationId": "getChannel",
         "summary": "Détail d’un canal",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -7804,7 +8512,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdAt": {
@@ -7884,7 +8595,9 @@
       "patch": {
         "operationId": "updateChannel",
         "summary": "Modifier un canal (créateur ou admin)",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -7975,7 +8688,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "createdAt": {
@@ -8055,7 +8771,9 @@
       "delete": {
         "operationId": "deleteChannel",
         "summary": "Supprimer un canal et ses messages (créateur ou admin)",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8140,7 +8858,9 @@
       "get": {
         "operationId": "listChannelMembers",
         "summary": "Membres explicites du canal",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8186,12 +8906,17 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -8254,7 +8979,9 @@
       "put": {
         "operationId": "addChannelMember",
         "summary": "Ajouter un membre au canal",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8308,12 +9035,17 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -8374,7 +9106,9 @@
       "delete": {
         "operationId": "removeChannelMember",
         "summary": "Retirer un membre du canal, ou le quitter",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8428,12 +9162,17 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "name"],
+                        "required": [
+                          "id",
+                          "name"
+                        ],
                         "additionalProperties": false
                       }
                     }
                   },
-                  "required": ["items"],
+                  "required": [
+                    "items"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -8496,7 +9235,9 @@
       "get": {
         "operationId": "listMessages",
         "summary": "Messages, du plus récent au plus ancien",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8576,7 +9317,10 @@
                                 "type": "string"
                               }
                             },
-                            "required": ["id", "name"],
+                            "required": [
+                              "id",
+                              "name"
+                            ],
                             "additionalProperties": false
                           },
                           "body": {
@@ -8618,7 +9362,10 @@
                       "type": "string"
                     }
                   },
-                  "required": ["items", "nextCursor"],
+                  "required": [
+                    "items",
+                    "nextCursor"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -8679,7 +9426,9 @@
       "post": {
         "operationId": "sendMessage",
         "summary": "Envoyer un message",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8716,7 +9465,9 @@
                     "maxLength": 4000
                   }
                 },
-                "required": ["body"]
+                "required": [
+                  "body"
+                ]
               }
             }
           }
@@ -8752,7 +9503,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "body": {
@@ -8848,7 +9602,9 @@
       "patch": {
         "operationId": "editMessage",
         "summary": "Modifier son message",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -8893,7 +9649,9 @@
                     "maxLength": 4000
                   }
                 },
-                "required": ["body"]
+                "required": [
+                  "body"
+                ]
               }
             }
           }
@@ -8929,7 +9687,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "body": {
@@ -9023,7 +9784,9 @@
       "delete": {
         "operationId": "deleteMessage",
         "summary": "Supprimer un message (auteur ou admin)",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -9086,7 +9849,10 @@
                           "type": "string"
                         }
                       },
-                      "required": ["id", "name"],
+                      "required": [
+                        "id",
+                        "name"
+                      ],
                       "additionalProperties": false
                     },
                     "body": {
@@ -9182,7 +9948,9 @@
       "post": {
         "operationId": "markChannelRead",
         "summary": "Marquer le canal comme lu",
-        "tags": ["channels"],
+        "tags": [
+          "channels"
+        ],
         "security": [
           {
             "session": []
@@ -9267,7 +10035,9 @@
       "get": {
         "operationId": "workspaceEvents",
         "summary": "Flux SSE des événements du workspace (text/event-stream)",
-        "tags": ["realtime"],
+        "tags": [
+          "realtime"
+        ],
         "security": [
           {
             "session": []
@@ -9344,7 +10114,9 @@
       "get": {
         "operationId": "health",
         "summary": "Vivacité du processus",
-        "tags": ["system"],
+        "tags": [
+          "system"
+        ],
         "security": [],
         "parameters": [],
         "responses": {
@@ -9357,10 +10129,14 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["ok"]
+                      "enum": [
+                        "ok"
+                      ]
                     }
                   },
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "additionalProperties": false
                 }
               }
@@ -9413,7 +10189,9 @@
       "get": {
         "operationId": "readiness",
         "summary": "Disponibilité (base de données)",
-        "tags": ["system"],
+        "tags": [
+          "system"
+        ],
         "security": [],
         "parameters": [],
         "responses": {
@@ -9426,17 +10204,26 @@
                   "properties": {
                     "status": {
                       "type": "string",
-                      "enum": ["ok", "degraded"]
+                      "enum": [
+                        "ok",
+                        "degraded"
+                      ]
                     },
                     "checks": {
                       "type": "object",
                       "additionalProperties": {
                         "type": "string",
-                        "enum": ["ok", "fail"]
+                        "enum": [
+                          "ok",
+                          "fail"
+                        ]
                       }
                     }
                   },
-                  "required": ["status", "checks"],
+                  "required": [
+                    "status",
+                    "checks"
+                  ],
                   "additionalProperties": false
                 }
               }
