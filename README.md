@@ -53,6 +53,7 @@ apps/web            Interface React Router (SPA) : features/ et shared/, Tailwin
 packages/contracts  Schémas Zod partagés : entrées/sorties, permissions, OpenAPI
 packages/database   Prisma : schéma, migrations, client, transactions
 packages/auth       better-auth : configuration, Argon2id, sessions
+packages/ui         Composants shadcn/ui partagés et thème OpenTask
 infra/              Dockerfiles, compose de production, scripts de sauvegarde
 docs/               Architecture, décisions (ADR), déploiement, sécurité, produit
 ```
