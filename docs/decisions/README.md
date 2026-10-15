@@ -16,3 +16,4 @@ Chaque décision importante est consignée ici : contexte, décision, conséquen
 | [0010](0010-composants-shadcn.md)              | Composants d’interface partagés : shadcn/ui dans `packages/ui`  | Acceptée  |
 | [0011](0011-serveur-mcp-et-jetons-api.md)      | Serveur MCP et jetons d’API personnels                          | Acceptée  |
 | [0012](0012-site-public.md)                    | Site public séparé de l’application                             | Acceptée  |
+| [0013](0013-documentation-vitepress.md)        | Site de documentation avec VitePress                            | Acceptée  |

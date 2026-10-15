@@ -18,3 +18,5 @@ backups/
 skills-lock.json
 SKILL*.md
 opentask-specification-projet-open-source.md
+apps/docs/dist/
+apps/docs/.vitepress/cache/
