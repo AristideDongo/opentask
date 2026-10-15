@@ -65,8 +65,11 @@ export class AppModule {
         { provide: APP_FILTER, useValue: new ApiErrorFilter(logger) },
         {
           provide: APP_GUARD,
-          useFactory: (options: ThrottlerModuleOptions, storage: ThrottlerStorage, reflector: Reflector) =>
-            new ThrottlerGuard(options, storage, reflector),
+          useFactory: (
+            options: ThrottlerModuleOptions,
+            storage: ThrottlerStorage,
+            reflector: Reflector,
+          ) => new ThrottlerGuard(options, storage, reflector),
           inject: [getOptionsToken(), getStorageToken(), Reflector],
         },
         {
