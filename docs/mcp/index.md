@@ -47,13 +47,13 @@ Avec Docker Compose, le serveur MCP est un service optionnel, servi à l’adres
 docker compose -f infra/docker/docker-compose.prod.yml --env-file infra/docker/.env.prod --profile mcp up -d --build
 ```
 
-| Variable                    | Défaut | Rôle                                                                                                                               |
-| --------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `MCP_ALLOW_WRITE`           | `true` | `false` n’expose que les outils de lecture.                                                                                        |
-| `MCP_ALLOWED_ORIGINS`       | vide   | Origines navigateur autorisées ; toute autre requête portant un en-tête `Origin` est refusée (protection contre le DNS rebinding). |
-| `MCP_RATE_LIMIT_PER_MINUTE` | `120`  | Requêtes par minute et par jeton.                                                                                                  |
-| `OPENTASK_API_URL`          | —      | Adresse de l’API vue depuis le serveur MCP (`http://api:4000` dans Docker Compose).                                                |
-| `MCP_PORT`                  | `4100` | Port d’écoute.                                                                                                                     |
+| Variable                    | Défaut                  | Rôle                                                                                                                               |
+| --------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `MCP_ALLOW_WRITE`           | `true`                  | `false` n’expose que les outils de lecture.                                                                                        |
+| `MCP_ALLOWED_ORIGINS`       | vide                    | Origines navigateur autorisées ; toute autre requête portant un en-tête `Origin` est refusée (protection contre le DNS rebinding). |
+| `MCP_RATE_LIMIT_PER_MINUTE` | `120`                   | Requêtes par minute et par jeton.                                                                                                  |
+| `OPENTASK_API_URL`          | `http://localhost:4000` | Adresse de l’API vue depuis le serveur MCP (`http://api:4000` dans Docker Compose).                                                |
+| `MCP_PORT`                  | `4100`                  | Port d’écoute.                                                                                                                     |
 
 En développement : `pnpm --filter @opentask/mcp dev` (avec `OPENTASK_API_URL=http://localhost:4000`).
 
