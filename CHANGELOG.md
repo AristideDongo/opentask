@@ -4,6 +4,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 
 ## [Non publié]
 
+### Ajouté (site public)
+
+- **Site public** (`apps/site`) en français et en anglais : présentation, fonctionnalités avec leur statut réel, auto-hébergement, MCP, installation, communauté et FAQ. Prérendu en HTML statique, avec métadonnées SEO, `sitemap.xml`, `robots.txt` et page 404 (ADR 0012).
+
 ### Modifié
 
 - **Nouvelle arborescence** (ADR 0009) : l’API est organisée en `domains/`, `infrastructures/`, `presentations/` et `shared/` ; l’interface en `features/` et `shared/` avec services, loaders, actions, mappers et ViewModels.
