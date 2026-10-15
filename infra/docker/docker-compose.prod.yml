@@ -44,6 +44,25 @@ services:
       RATE_LIMIT_ENABLED: 'true'
       TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-1}
 
+  mcp:
+    build:
+      context: ../..
+      dockerfile: infra/docker/mcp.Dockerfile
+    image: opentask-mcp:${OPENTASK_VERSION:-local}
+    profiles: [mcp]
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      OPENTASK_API_URL: http://api:4000
+      MCP_PORT: 4100
+      MCP_ALLOW_WRITE: ${MCP_ALLOW_WRITE:-true}
+      MCP_ALLOWED_ORIGINS: ${MCP_ALLOWED_ORIGINS:-}
+      MCP_RATE_LIMIT_PER_MINUTE: ${MCP_RATE_LIMIT_PER_MINUTE:-120}
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-1}
+
   web:
     build:
       context: ../..

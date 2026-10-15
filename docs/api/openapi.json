@@ -3,7 +3,7 @@
   "info": {
     "title": "OpenTask API",
     "version": "0.1.0",
-    "description": "API REST d’OpenTask. Authentification par cookie de session (better-auth). Les erreurs suivent un format stable `{ error: { code, message, details?, requestId? } }`.",
+    "description": "API REST d’OpenTask. Authentification par cookie de session (better-auth) ou par jeton d’API personnel (`Authorization: Bearer otk_…`). Les erreurs suivent un format stable `{ error: { code, message, details?, requestId? } }`.",
     "license": {
       "name": "AGPL-3.0-only",
       "url": "https://www.gnu.org/licenses/agpl-3.0.html"
@@ -20,6 +20,11 @@
         "type": "apiKey",
         "in": "cookie",
         "name": "opentask.session_token"
+      },
+      "apiToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Jeton d’API personnel (otk_…) : permission read pour GET, write pour les modifications."
       }
     },
     "schemas": {
@@ -260,6 +265,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [],
@@ -544,6 +552,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [],
@@ -659,6 +670,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [],
@@ -794,6 +808,406 @@
         }
       }
     },
+    "/api/v1/me/api-tokens": {
+      "get": {
+        "operationId": "listApiTokens",
+        "summary": "Mes jetons d’API",
+        "tags": [
+          "me"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 64
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "hint": {
+                            "type": "string"
+                          },
+                          "scopes": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "read",
+                                "write"
+                              ]
+                            }
+                          },
+                          "lastUsedAt": {
+                            "nullable": true,
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          },
+                          "expiresAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "hint",
+                          "scopes",
+                          "lastUsedAt",
+                          "expiresAt",
+                          "createdAt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Action interdite pour ce rôle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable ou inaccessible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Trop de requêtes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createApiToken",
+        "summary": "Créer un jeton d’API (affiché une seule fois)",
+        "tags": [
+          "me"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                  },
+                  "scopes": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "read",
+                        "write"
+                      ]
+                    }
+                  },
+                  "expiresInDays": {
+                    "default": 90,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "enum": [
+                          30
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          90
+                        ]
+                      },
+                      {
+                        "type": "number",
+                        "enum": [
+                          365
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "scopes"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succès",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "hint": {
+                      "type": "string"
+                    },
+                    "scopes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "read",
+                          "write"
+                        ]
+                      }
+                    },
+                    "lastUsedAt": {
+                      "nullable": true,
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "hint",
+                    "scopes",
+                    "lastUsedAt",
+                    "expiresAt",
+                    "createdAt",
+                    "token"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Action interdite pour ce rôle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable ou inaccessible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Trop de requêtes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/api-tokens/{tokenId}": {
+      "delete": {
+        "operationId": "revokeApiToken",
+        "summary": "Révoquer un jeton d’API",
+        "tags": [
+          "me"
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Succès"
+          },
+          "400": {
+            "description": "Requête invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Session absente ou expirée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Action interdite pour ce rôle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ressource introuvable ou inaccessible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Trop de requêtes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/workspaces": {
       "get": {
         "operationId": "listWorkspaces",
@@ -804,6 +1218,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [],
@@ -934,6 +1351,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [],
@@ -1074,6 +1494,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1201,6 +1624,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1348,6 +1774,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1445,6 +1874,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1594,6 +2026,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1732,6 +2167,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1887,6 +2325,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -1974,6 +2415,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2136,6 +2580,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2321,6 +2768,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2517,6 +2967,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2625,6 +3078,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2820,6 +3276,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -2969,6 +3428,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3143,6 +3605,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3288,6 +3753,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3454,6 +3922,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3541,6 +4012,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3694,6 +4168,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -3849,6 +4326,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -4074,6 +4554,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -4321,6 +4804,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -4542,6 +5028,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -4790,6 +5279,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -4877,6 +5369,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5011,6 +5506,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5173,6 +5671,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5335,6 +5836,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5449,6 +5953,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5572,6 +6079,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5710,6 +6220,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5850,6 +6363,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -5945,6 +6461,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -6339,6 +6858,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -6699,6 +7221,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -6986,6 +7511,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -7507,6 +8035,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -7857,6 +8388,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -7944,6 +8478,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8099,6 +8636,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8258,6 +8798,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8446,6 +8989,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8601,6 +9147,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8777,6 +9326,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8864,6 +9416,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -8985,6 +9540,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9112,6 +9670,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9241,6 +9802,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9432,6 +9996,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9608,6 +10175,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9790,6 +10360,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -9954,6 +10527,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [
@@ -10041,6 +10617,9 @@
         "security": [
           {
             "session": []
+          },
+          {
+            "apiToken": []
           }
         ],
         "parameters": [

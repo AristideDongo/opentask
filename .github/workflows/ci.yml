@@ -87,5 +87,6 @@ jobs:
       - uses: actions/checkout@v7
       - run: docker build -f infra/docker/api.Dockerfile -t opentask-api:ci .
       - run: docker build -f infra/docker/web.Dockerfile -t opentask-web:ci .
+      - run: docker build -f infra/docker/mcp.Dockerfile -t opentask-mcp:ci .
       - name: Moteur de migration présent dans l’image (sans réseau)
         run: docker run --rm --network none --entrypoint sh opentask-api:ci -c 'cd database && node_modules/.bin/prisma version'
