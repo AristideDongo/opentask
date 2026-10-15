@@ -1,0 +1,35 @@
+{
+  "name": "@opentask/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "bin": {
+    "opentask-mcp": "dist/stdio.js"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/http.ts",
+    "stdio": "tsx src/stdio.ts",
+    "build": "tsup",
+    "start": "node dist/http.js",
+    "lint": "eslint src test",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@opentask/contracts": "workspace:*",
+    "express": "5.3.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@opentask/config-typescript": "workspace:*",
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "pg": "8.23.1",
+    "tsup": "8.5.1",
+    "tsx": "4.23.15",
+    "vitest": "4.1.11"
+  }
+}

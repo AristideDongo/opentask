@@ -23,6 +23,11 @@ import {
   InvitationPreviewSchema,
 } from '../invitations/invitation';
 import { MeSchema, UpdateProfileInputSchema } from '../me/profile';
+import {
+  ApiTokenListSchema,
+  CreateApiTokenInputSchema,
+  CreatedApiTokenSchema,
+} from '../tokens/api-token';
 import { ChangeMemberRoleInputSchema, MemberListSchema, MemberSchema } from '../members/member';
 import {
   ColumnListSchema,
@@ -92,6 +97,7 @@ export interface RouteContract {
     | 'realtime'
     | 'system';
   auth: 'session' | 'public';
+  tokenAuth?: false;
   body?: z.ZodType;
   query?: z.ZodType;
   response?: z.ZodType;
@@ -177,6 +183,38 @@ export const routes = [
     auth: 'session',
     body: UpdateProfileInputSchema,
     response: MeSchema,
+  },
+  {
+    method: 'get',
+    path: '/me/api-tokens',
+    operationId: 'listApiTokens',
+    summary: 'Mes jetons d’API',
+    tag: 'me',
+    auth: 'session',
+    tokenAuth: false,
+    response: ApiTokenListSchema,
+  },
+  {
+    method: 'post',
+    path: '/me/api-tokens',
+    operationId: 'createApiToken',
+    summary: 'Créer un jeton d’API (affiché une seule fois)',
+    tag: 'me',
+    auth: 'session',
+    tokenAuth: false,
+    body: CreateApiTokenInputSchema,
+    response: CreatedApiTokenSchema,
+    status: 201,
+  },
+  {
+    method: 'delete',
+    path: '/me/api-tokens/:tokenId',
+    operationId: 'revokeApiToken',
+    summary: 'Révoquer un jeton d’API',
+    tag: 'me',
+    auth: 'session',
+    tokenAuth: false,
+    status: 204,
   },
   {
     method: 'get',

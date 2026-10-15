@@ -11,6 +11,8 @@ import {
 import { AuthService } from './infrastructures/auth/auth.service';
 import { InfrastructuresModule } from './infrastructures/infrastructures.module';
 import { LOGGER, type Logger } from './infrastructures/logger/logger.service';
+import { ApiTokensDomainModule } from './domains/api-tokens/api-tokens.module';
+import { AuthenticateApiTokenUseCase } from './domains/api-tokens/use-cases/authenticate-api-token.use-case';
 import { AccountModule } from './presentations/account/account.module';
 import { ChannelsModule } from './presentations/channels/channels.module';
 import { InvitationsModule } from './presentations/invitations/invitations.module';
@@ -53,6 +55,7 @@ export class AppModule {
         }),
         SystemModule,
         AccountModule,
+        ApiTokensDomainModule,
         WorkspacesModule,
         InvitationsModule,
         TeamsModule,
@@ -74,9 +77,12 @@ export class AppModule {
         },
         {
           provide: APP_GUARD,
-          useFactory: (auth: AuthService, reflector: Reflector) =>
-            new SessionGuard(auth, reflector),
-          inject: [AuthService, Reflector],
+          useFactory: (
+            auth: AuthService,
+            tokens: AuthenticateApiTokenUseCase,
+            reflector: Reflector,
+          ) => new SessionGuard(auth, tokens, reflector),
+          inject: [AuthService, AuthenticateApiTokenUseCase, Reflector],
         },
       ],
     };
