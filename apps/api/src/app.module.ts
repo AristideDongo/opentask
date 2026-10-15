@@ -1,6 +1,13 @@
 import { type DynamicModule, Global, Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, Reflector } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import {
+  getOptionsToken,
+  getStorageToken,
+  ThrottlerGuard,
+  ThrottlerModule,
+  type ThrottlerModuleOptions,
+  type ThrottlerStorage,
+} from '@nestjs/throttler';
 import { AuthService } from './infrastructures/auth/auth.service';
 import { InfrastructuresModule } from './infrastructures/infrastructures.module';
 import { LOGGER, type Logger } from './infrastructures/logger/logger.service';
@@ -56,7 +63,15 @@ export class AppModule {
       ],
       providers: [
         { provide: APP_FILTER, useValue: new ApiErrorFilter(logger) },
-        { provide: APP_GUARD, useClass: ThrottlerGuard },
+        {
+          provide: APP_GUARD,
+          useFactory: (
+            options: ThrottlerModuleOptions,
+            storage: ThrottlerStorage,
+            reflector: Reflector,
+          ) => new ThrottlerGuard(options, storage, reflector),
+          inject: [getOptionsToken(), getStorageToken(), Reflector],
+        },
         {
           provide: APP_GUARD,
           useFactory: (auth: AuthService, reflector: Reflector) =>
