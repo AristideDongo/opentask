@@ -51,6 +51,7 @@ Sauvegarde et restauration : [docs/deployment/backup-restore.md](docs/deployment
 ```text
 apps/api            API NestJS : domains/, infrastructures/, presentations/, shared/
 apps/web            Interface React Router (SPA) : features/ et shared/, Tailwind, Radix
+apps/site           Site public (landing page) prérendu en HTML statique
 packages/contracts  Schémas Zod partagés : entrées/sorties, permissions, OpenAPI
 packages/database   Prisma : schéma, migrations, client, transactions
 packages/auth       better-auth : configuration, Argon2id, sessions
