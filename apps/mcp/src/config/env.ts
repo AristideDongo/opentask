@@ -15,7 +15,7 @@ const StdioEnvSchema = z.object({
 });
 
 const HttpEnvSchema = z.object({
-  OPENTASK_API_URL: url,
+  OPENTASK_API_URL: url.default('http://localhost:4000'),
   MCP_PORT: z.coerce.number().int().positive().default(4100),
   MCP_ALLOW_WRITE: booleanString.default(true),
   MCP_ALLOWED_ORIGINS: z
