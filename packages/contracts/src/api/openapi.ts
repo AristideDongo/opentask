@@ -12,6 +12,11 @@ const errorResponse = (description: string) => ({
   content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiError' } } },
 });
 
+const securityFor = (route: RouteContract) => {
+  if (route.auth === 'public') return [];
+  return route.tokenAuth === false ? [{ session: [] }] : [{ session: [] }, { apiToken: [] }];
+};
+
 function operation(route: RouteContract) {
   const params = [...route.path.matchAll(/:([A-Za-z]+)/g)].map((m) => ({
     name: m[1],
@@ -31,7 +36,7 @@ function operation(route: RouteContract) {
     operationId: route.operationId,
     summary: route.summary,
     tags: [route.tag],
-    ...(route.auth === 'session' ? { security: [{ session: [] }] } : { security: [] }),
+    security: securityFor(route),
     parameters: [...params, ...query],
     ...(route.body
       ? {
@@ -70,13 +75,19 @@ export function buildOpenApiDocument(version: string) {
       title: 'OpenTask API',
       version,
       description:
-        'API REST d’OpenTask. Authentification par cookie de session (better-auth). Les erreurs suivent un format stable `{ error: { code, message, details?, requestId? } }`.',
+        'API REST d’OpenTask. Authentification par cookie de session (better-auth) ou par jeton d’API personnel (`Authorization: Bearer otk_…`). Les erreurs suivent un format stable `{ error: { code, message, details?, requestId? } }`.',
       license: { name: 'AGPL-3.0-only', url: 'https://www.gnu.org/licenses/agpl-3.0.html' },
     },
     servers: [{ url: '/' }],
     components: {
       securitySchemes: {
         session: { type: 'apiKey', in: 'cookie', name: 'opentask.session_token' },
+        apiToken: {
+          type: 'http',
+          scheme: 'bearer',
+          description:
+            'Jeton d’API personnel (otk_…) : permission read pour GET, write pour les modifications.',
+        },
       },
       schemas: { ApiError: toSchema(ApiErrorSchema, 'output') },
     },
