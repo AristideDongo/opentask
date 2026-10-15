@@ -14,5 +14,5 @@ Chaque décision importante est consignée ici : contexte, décision, conséquen
 | [0008](0008-temps-reel-sse.md)                 | Temps réel par Server-Sent Events                               | Acceptée  |
 | [0009](0009-structure-features-et-domaines.md) | Domaines (API), features (interface), packages database et auth | Acceptée  |
 | [0010](0010-composants-shadcn.md)              | Composants d’interface partagés : shadcn/ui dans `packages/ui`  | Acceptée  |
-| [0012](0012-site-public.md)                    | Site public séparé de l’application                             | Acceptée  |
 | [0011](0011-serveur-mcp-et-jetons-api.md)      | Serveur MCP et jetons d’API personnels                          | Acceptée  |
+| [0012](0012-site-public.md)                    | Site public séparé de l’application                             | Acceptée  |
