@@ -4,6 +4,10 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 
 ## [Non publié]
 
+### Ajouté (documentation)
+
+- **Site de documentation** (`apps/docs`, VitePress) construit à partir de `docs/` : recherche intégrée, contrôle des liens au build, guides utilisateur, configuration et exploitation, API REST, MCP (Claude Code, ChatGPT, outils, sécurité, dépannage), contribution et dépannage (ADR 0013).
+
 ### Modifié
 
 - **Nouvelle arborescence** (ADR 0009) : l’API est organisée en `domains/`, `infrastructures/`, `presentations/` et `shared/` ; l’interface en `features/` et `shared/` avec services, loaders, actions, mappers et ViewModels.
