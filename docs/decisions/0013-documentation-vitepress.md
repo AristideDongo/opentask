@@ -1,6 +1,6 @@
 # 0013 — Site de documentation avec VitePress
 
-**Statut : acceptée**
+**Statut : remplacée** par [0014](0014-landing-et-documentation-dans-l-application.md).
 
 ## Contexte
 

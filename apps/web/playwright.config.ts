@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 const E2E_DATABASE_URL =
   process.env.E2E_DATABASE_URL ?? 'postgresql://opentask:opentask@localhost:5432/opentask_e2e';
 const WEB_PORT = 5174;
-const API_PORT = 4100;
+const API_PORT = 4200;
 
 export default defineConfig({
   testDir: 'e2e',

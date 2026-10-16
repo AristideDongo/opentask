@@ -6,6 +6,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 
 ### Modifié
 
+- **Palette « Mermaid Dreams »** (turquoise vers bleu marine) pour toute l’interface, contrastes WCAG AA vérifiés.
+- L’application est désormais sous **`/app`** ; `/` est la landing page.
 - **Nouvelle arborescence** (ADR 0009) : l’API est organisée en `domains/`, `infrastructures/`, `presentations/` et `shared/` ; l’interface en `features/` et `shared/` avec services, loaders, actions, mappers et ViewModels.
 - Prisma (schéma, migrations, client) déménage dans **`packages/database`**, better-auth dans **`packages/auth`**. Commandes : `pnpm db:generate`, `pnpm db:migrate`, `pnpm db:migrate:dev`.
 - Les packages `domain` et `application` sont supprimés ; les décisions de permission sont partagées via `packages/contracts`.
@@ -18,8 +20,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 
 - **Jetons d’API personnels** (Profil → Jetons d’API) : permissions lecture/écriture, durée de 30, 90 ou 365 jours, révocables ; acceptés par l’API via `Authorization: Bearer`.
 - **Serveur MCP** (`apps/mcp`) pour les assistants IA : transports stdio et HTTP, 9 outils de lecture, 5 d’écriture (aucune suppression), 3 prompts, mêmes permissions que l’API. Pris en charge par Claude Code ; ChatGPT en développement (OAuth requis). Service Docker Compose optionnel (`--profile mcp`) (ADR 0011).
-- **Site public** (`apps/site`) en français et en anglais : présentation, fonctionnalités avec leur statut réel, auto-hébergement, MCP, installation, communauté et FAQ. Prérendu en HTML statique, avec métadonnées SEO, `sitemap.xml`, `robots.txt` et page 404 (ADR 0012).
-- **Site de documentation** (`apps/docs`, VitePress) construit à partir de `docs/` : recherche intégrée, contrôle des liens au build, guides utilisateur, configuration et exploitation, API REST, MCP (Claude Code, ChatGPT, outils, sécurité, dépannage), contribution et dépannage (ADR 0013).
+- **Landing page** sur `/` (français et anglais) avec connexion et inscription : présentation, fonctionnalités avec leur statut réel, auto-hébergement, MCP en 3 étapes, installation, communauté et FAQ. Prérendue en HTML statique (ADR 0014).
+- **Documentation** sur `/docs`, rendue depuis `docs/` : barre latérale, recherche, table des matières, guides utilisateur, administration, API, MCP (connexion de Claude Code, outils, sécurité, dépannage), contribution. Liens et ancres vérifiés par un test (ADR 0014).
 
 - **Colonnes du Kanban personnalisables par projet** : ajouter une colonne (« Ajouter une colonne » en fin de tableau), la **renommer par double-clic sur son titre** (Entrée pour valider, Échap pour annuler), changer son type, la déplacer à gauche ou à droite, la supprimer en choisissant la colonne qui reçoit ses tâches. Toutes ces actions sont aussi disponibles au clavier via le menu « … » de la colonne.
 - Chaque colonne a un **type** (À faire, En cours, En revue, Terminé) qui décide si ses tâches sont terminées ; changer le type met à jour les tâches de la colonne.

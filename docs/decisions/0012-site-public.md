@@ -1,6 +1,6 @@
 # 0012 — Site public séparé de l’application
 
-**Statut : acceptée**
+**Statut : remplacée** par [0014](0014-landing-et-documentation-dans-l-application.md).
 
 ## Contexte
 

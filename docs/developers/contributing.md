@@ -23,17 +23,15 @@ La branche `main` est protégée : toute modification passe par une pull request
 
 ## Organisation du code
 
-| Dossier              | Contenu                                                                     |
-| -------------------- | --------------------------------------------------------------------------- |
-| `packages/contracts` | Schémas Zod partagés, registre des routes, OpenAPI, décisions de permission |
-| `packages/database`  | Prisma : schéma, migrations, client                                         |
-| `packages/auth`      | better-auth : configuration, Argon2id, sessions                             |
-| `packages/ui`        | Composants shadcn/ui partagés                                               |
-| `apps/api`           | API NestJS : `domains/`, `infrastructures/`, `presentations/`, `shared/`    |
-| `apps/web`           | Interface React Router : `features/`, `shared/`                             |
-| `apps/mcp`           | Serveur MCP                                                                 |
-| `apps/site`          | Site public                                                                 |
-| `apps/docs`          | Cette documentation (VitePress, source dans `docs/`)                        |
+| Dossier              | Contenu                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------ |
+| `packages/contracts` | Schémas Zod partagés, registre des routes, OpenAPI, décisions de permission                |
+| `packages/database`  | Prisma : schéma, migrations, client                                                        |
+| `packages/auth`      | better-auth : configuration, Argon2id, sessions                                            |
+| `packages/ui`        | Composants shadcn/ui partagés                                                              |
+| `apps/api`           | API NestJS : `domains/`, `infrastructures/`, `presentations/`, `shared/`                   |
+| `apps/web`           | Interface React Router : landing page (`/`), documentation (`/docs`), application (`/app`) |
+| `apps/mcp`           | Serveur MCP                                                                                |
 
 Les règles d’architecture sont décrites dans [l’ADR 0009](../decisions/0009-structure-features-et-domaines.md).
 
@@ -47,12 +45,7 @@ Les règles d’architecture sont décrites dans [l’ADR 0009](../decisions/000
 
 ## Documentation
 
-La documentation est écrite en Markdown dans `docs/` et publiée avec VitePress :
-
-```sh
-pnpm --filter @opentask/docs dev     # http://localhost:5190
-pnpm --filter @opentask/docs build   # échoue si un lien interne est cassé
-```
+La documentation est écrite en Markdown dans `docs/`. L’application la sert sur `/docs` (`pnpm dev`, puis http://localhost:5173/docs) ; les pages sont générées au build. Un test (`pnpm --filter @opentask/web test`) vérifie que chaque lien interne et chaque ancre existent, et que chaque page de la barre latérale a son fichier. Ajoutez toute nouvelle page à la barre latérale dans `apps/web/src/features/docs/docs.const.ts`.
 
 ## Signaler une vulnérabilité
 
