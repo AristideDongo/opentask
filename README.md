@@ -36,29 +36,26 @@ Sauvegarde et restauration : [docs/deployment/backup-restore.md](docs/deployment
 
 ## Commandes
 
-| Commande                           | Rôle                                                        |
-| ---------------------------------- | ----------------------------------------------------------- |
-| `pnpm dev`                         | API et interface en mode développement                      |
-| `pnpm lint` / `pnpm typecheck`     | ESLint et TypeScript sur tout le monorepo                   |
-| `pnpm test`                        | Tests unitaires et intégration API (PostgreSQL requis)      |
-| `pnpm test:e2e`                    | Parcours Playwright avec contrôles d’accessibilité axe      |
-| `pnpm build`                       | Build de production (bundle API, SPA statique)              |
-| `pnpm openapi`                     | Régénère `docs/api/openapi.json` depuis les contrats        |
-| `pnpm --filter @opentask/docs dev` | Site de documentation (VitePress) sur http://localhost:5190 |
+| Commande                       | Rôle                                                   |
+| ------------------------------ | ------------------------------------------------------ |
+| `pnpm dev`                     | API et interface en mode développement                 |
+| `pnpm lint` / `pnpm typecheck` | ESLint et TypeScript sur tout le monorepo              |
+| `pnpm test`                    | Tests unitaires et intégration API (PostgreSQL requis) |
+| `pnpm test:e2e`                | Parcours Playwright avec contrôles d’accessibilité axe |
+| `pnpm build`                   | Build de production (bundle API, SPA statique)         |
+| `pnpm openapi`                 | Régénère `docs/api/openapi.json` depuis les contrats   |
 
 ## Architecture
 
 ```text
 apps/api            API NestJS : domains/, infrastructures/, presentations/, shared/
-apps/web            Interface React Router (SPA) : features/ et shared/, Tailwind, Radix
-apps/site           Site public (landing page) prérendu en HTML statique
+apps/web            Interface React Router : landing page (/), documentation (/docs), application (/app)
 packages/contracts  Schémas Zod partagés : entrées/sorties, permissions, OpenAPI
 packages/database   Prisma : schéma, migrations, client, transactions
 packages/auth       better-auth : configuration, Argon2id, sessions
 packages/ui         Composants shadcn/ui partagés et thème OpenTask
 infra/              Dockerfiles, compose de production, scripts de sauvegarde
-apps/docs           Site de documentation (VitePress, source dans docs/)
-docs/               Guides, architecture, décisions (ADR), déploiement, sécurité, produit
+docs/               Documentation en Markdown, servie par l’application sur /docs
 ```
 
 Détails : [docs/architecture/overview.md](docs/architecture/overview.md) et [décisions d’architecture](docs/decisions/).

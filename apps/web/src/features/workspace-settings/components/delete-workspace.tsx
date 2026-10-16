@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { APP_HOME } from '../../../shared/constants/paths';
 import { Button } from '../../../shared/components/button';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog';
 import { Field, Input } from '../../../shared/components/form-controls';
@@ -27,7 +28,7 @@ export function DeleteWorkspace({ workspace }: { workspace: WorkspaceVM }) {
         canConfirm={confirmName === workspace.name}
         onConfirm={async () => {
           await deleteWorkspace(workspace.id, confirmName);
-          navigate('/', { replace: true });
+          navigate(APP_HOME, { replace: true });
         }}
       >
         <Field label={t('settings.delete.confirmLabel', { name: workspace.name })}>

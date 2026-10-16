@@ -1,6 +1,10 @@
 import { type RouteConfig, index, layout, route } from '@react-router/dev/routes';
 
 export default [
+  index('features/landing/index.tsx'),
+  route('docs/search.json', 'features/docs-search/index.ts'),
+  route('docs', 'features/docs/index.tsx', { id: 'docs-home' }),
+  route('docs/*', 'features/docs/index.tsx', { id: 'docs-page' }),
   layout('features/auth/index.tsx', [
     route('login', 'features/login/index.tsx'),
     route('register', 'features/register/index.tsx'),
@@ -9,7 +13,7 @@ export default [
   ]),
   route('invite/:token', 'features/invitation/index.tsx'),
   layout('features/app-shell/index.tsx', [
-    index('features/home/index.tsx'),
+    route('app', 'features/home/index.tsx'),
     route('onboarding', 'features/onboarding/index.tsx'),
     route('profile', 'features/profile/index.tsx'),
     route('w/:workspaceId', 'features/workspace/index.tsx', [

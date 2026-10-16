@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { APP_HOME } from '../../../shared/constants/paths';
 import { Button } from '../../../shared/components/button';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog';
 import { Section } from '../../../shared/components/section';
@@ -29,7 +30,7 @@ export function LeaveWorkspace({ workspace }: { workspace: WorkspaceVM }) {
         confirmLabel={t('settings.leave.submit')}
         onConfirm={async () => {
           await leaveWorkspace(workspace.id, me.id);
-          navigate('/', { replace: true });
+          navigate(APP_HOME, { replace: true });
         }}
       />
     </Section>

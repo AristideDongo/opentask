@@ -1,5 +1,5 @@
 import type { Locale } from '@opentask/contracts/me/profile';
-import { type ReactNode, useCallback, useMemo, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
 import { type MessageKey, en, fr } from '../constants/messages';
 import { type I18n, I18nContext, type MessageVars } from '../hooks/useI18n';
 import { ApiRequestError } from '../utils/api-client';
@@ -19,18 +19,40 @@ function detectLocale(): Locale {
     : 'fr';
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(detectLocale);
+const PRERENDER_LOCALE: Locale = 'fr';
 
-  const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next);
-    document.documentElement.lang = next;
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      return;
-    }
-  }, []);
+let currentLocale: Locale | null = null;
+const listeners = new Set<() => void>();
+
+const subscribe = (listener: () => void) => {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+};
+
+const getLocale = (): Locale => (currentLocale ??= detectLocale());
+
+function persistLocale(next: Locale) {
+  try {
+    localStorage.setItem(STORAGE_KEY, next);
+  } catch {
+    return;
+  }
+}
+
+function storeLocale(next: Locale) {
+  currentLocale = next;
+  persistLocale(next);
+  listeners.forEach((listener) => listener());
+}
+
+export function I18nProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(subscribe, getLocale, () => PRERENDER_LOCALE);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
+  const setLocale = useCallback((next: Locale) => storeLocale(next), []);
 
   const value = useMemo<I18n>(() => {
     const t = (key: MessageKey, vars?: MessageVars) => {

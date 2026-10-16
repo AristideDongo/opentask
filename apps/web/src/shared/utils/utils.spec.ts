@@ -17,7 +17,7 @@ describe('safeRedirect', () => {
       'javascript:alert(1)',
       '',
     ]) {
-      expect(safeRedirect(target)).toBe('/');
+      expect(safeRedirect(target)).toBe('/app');
     }
     expect(safeRedirect(null, '/login')).toBe('/login');
   });
