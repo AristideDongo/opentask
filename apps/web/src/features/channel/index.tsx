@@ -7,6 +7,7 @@ import { Composer } from './components/composer';
 import { MessageList } from './components/message-list';
 import { useChannelMessages } from './hooks/useChannelMessages';
 import { toChannelMessageVM } from './mappers/message.mapper';
+import { toMentionCandidates } from './mappers/mention-candidates.mapper';
 import { channelLoader, channelShouldRevalidate } from './servers/channel.loader';
 import { sendMessage } from './servers/channel.service';
 
@@ -16,8 +17,9 @@ export const shouldRevalidate = channelShouldRevalidate;
 
 export default function ChannelPage() {
   const { channel, page, members, viewer } = useLoaderData<typeof channelLoader>();
-  const { workspace } = useWorkspaceData();
+  const { workspace, members: workspaceMembers } = useWorkspaceData();
   const { t } = useI18n();
+  const candidates = toMentionCandidates(channel, members, workspaceMembers, viewer.meId);
   const { messages, hasOlder, loadingOlder, loadOlder, append, scroller } = useChannelMessages(
     workspace.id,
     channel.id,
@@ -49,14 +51,20 @@ export default function ChannelPage() {
         {messages.length === 0 ? (
           <p className="py-16 text-center text-muted">{t('channel.empty')}</p>
         ) : (
-          <MessageList workspaceId={workspace.id} channelId={channel.id} messages={messages} />
+          <MessageList
+            workspaceId={workspace.id}
+            channelId={channel.id}
+            messages={messages}
+            candidates={candidates}
+          />
         )}
       </div>
       <Composer
         key={channel.id}
         channel={channel}
-        onSend={async (body) =>
-          append(toChannelMessageVM(await sendMessage(workspace.id, channel.id, body), viewer))
+        candidates={candidates}
+        onSend={async (input) =>
+          append(toChannelMessageVM(await sendMessage(workspace.id, channel.id, input), viewer))
         }
       />
     </div>

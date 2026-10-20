@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AttachmentRepository } from '../attachments/repository/attachment.repository';
 import { AuditLogRepository } from './repository/audit-log.repository';
 import { MembershipRepository } from './repository/membership.repository';
 import { WorkspaceRepository } from './repository/workspace.repository';
@@ -27,7 +28,13 @@ const useCases = [
 ];
 
 @Module({
-  providers: [WorkspaceRepository, MembershipRepository, AuditLogRepository, ...useCases],
+  providers: [
+    WorkspaceRepository,
+    AttachmentRepository,
+    MembershipRepository,
+    AuditLogRepository,
+    ...useCases,
+  ],
   exports: [WorkspaceRepository, MembershipRepository, AuditLogRepository, ...useCases],
 })
 export class WorkspacesDomainModule {}

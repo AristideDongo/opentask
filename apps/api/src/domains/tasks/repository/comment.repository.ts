@@ -1,7 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../infrastructures/prisma/prisma.service';
 
-const authorInclude = { author: { select: { id: true, name: true } } } as const;
+const authorInclude = {
+  author: { select: { id: true, name: true } },
+  mentions: { select: { user: { select: { id: true, name: true } } } },
+} as const;
 
 @Injectable()
 export class CommentRepository {
@@ -9,6 +12,10 @@ export class CommentRepository {
 
   create(data: { workspaceId: string; taskId: string; authorId: string; body: string }) {
     return this.prisma.db.taskComment.create({ data, include: authorInclude });
+  }
+
+  reload(id: string) {
+    return this.prisma.db.taskComment.findUniqueOrThrow({ where: { id }, include: authorInclude });
   }
 
   listForTask(taskId: string) {

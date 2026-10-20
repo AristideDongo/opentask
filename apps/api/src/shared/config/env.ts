@@ -19,6 +19,8 @@ const EnvSchema = z.object({
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
   RATE_LIMIT_ENABLED: booleanString.default(true),
   TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(1),
+  STORAGE_DIR: z.string().min(1).default('storage'),
+  MAX_UPLOAD_MB: z.coerce.number().positive().max(512).default(10),
 });
 
 export type Env = z.infer<typeof EnvSchema>;

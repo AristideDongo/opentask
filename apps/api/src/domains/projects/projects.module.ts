@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AttachmentRepository } from '../attachments/repository/attachment.repository';
 import { UsersDomainModule } from '../users/users.module';
 import { WorkspacesDomainModule } from '../workspaces/workspaces.module';
 import { ColumnRepository } from './repository/column.repository';
@@ -36,7 +37,13 @@ const useCases = [
 
 @Module({
   imports: [WorkspacesDomainModule, UsersDomainModule],
-  providers: [ProjectRepository, ColumnRepository, LabelRepository, ...useCases],
+  providers: [
+    AttachmentRepository,
+    ProjectRepository,
+    ColumnRepository,
+    LabelRepository,
+    ...useCases,
+  ],
   exports: [ProjectRepository, ColumnRepository, LabelRepository, ...useCases],
 })
 export class ProjectsDomainModule {}

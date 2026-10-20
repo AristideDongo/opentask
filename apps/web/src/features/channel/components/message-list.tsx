@@ -1,6 +1,6 @@
 import { useI18n } from '../../../shared/hooks/useI18n';
 import { useToast } from '../../../shared/hooks/useToast';
-import type { ChannelMessageVM } from '../channel.types';
+import type { ChannelMessageVM, MentionCandidateVM } from '../channel.types';
 import { toMessageRows } from '../mappers/message.mapper';
 import { deleteMessage, editMessage } from '../servers/channel.service';
 import { MessageItem } from './message-item';
@@ -9,10 +9,12 @@ export function MessageList({
   workspaceId,
   channelId,
   messages,
+  candidates,
 }: {
   workspaceId: string;
   channelId: string;
   messages: ChannelMessageVM[];
+  candidates: MentionCandidateVM[];
 }) {
   const { t, formatDate, errorMessage } = useI18n();
   const { notify } = useToast();
@@ -49,6 +51,7 @@ export function MessageList({
           <MessageItem
             message={message}
             compact={compact}
+            candidates={candidates}
             onEdit={(body) => edit(message.id, body)}
             onDelete={() => void remove(message.id)}
           />

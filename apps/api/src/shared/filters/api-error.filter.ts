@@ -70,7 +70,7 @@ export class ApiErrorFilter implements ExceptionFilter {
       const status = exception.getStatus();
       const code = HTTP_CODES[status];
       if (code) return make(status, code, HTTP_MESSAGES[code] ?? exception.message);
-      if (status === 413) return make(status, 'VALIDATION_FAILED', 'Requête trop volumineuse.');
+      if (status === 413) return make(status, 'PAYLOAD_TOO_LARGE', 'Requête trop volumineuse.');
     }
     if (isBodyParserError(exception))
       return make(400, 'VALIDATION_FAILED', 'Corps de requête JSON invalide.');

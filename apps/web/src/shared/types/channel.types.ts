@@ -1,3 +1,4 @@
+import type { AttachmentVM, MentionRefVM, TextSegmentVM } from './content.types';
 import type { PersonVM } from './person.types';
 
 export interface ChannelVM {
@@ -15,6 +16,10 @@ export interface MessageVM {
   channelId: string;
   author: PersonVM | null;
   body: string;
+  segments: TextSegmentVM[];
+  mentions: MentionRefVM[];
+  mentionsMe: boolean;
+  attachments: AttachmentVM[];
   isDeleted: boolean;
   isEdited: boolean;
   isMine: boolean;

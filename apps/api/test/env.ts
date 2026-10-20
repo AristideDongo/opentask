@@ -1,3 +1,5 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { config } from 'dotenv';
 import type { Env } from '../src/shared/config/env';
 import { loadEnv } from '../src/shared/config/env';
@@ -18,5 +20,7 @@ export const testEnv = (overrides: Record<string, string> = {}): Env =>
     LOG_LEVEL: 'silent',
     RATE_LIMIT_ENABLED: 'false',
     TRUST_PROXY_HOPS: '0',
+    STORAGE_DIR: join(tmpdir(), 'opentask-test-storage'),
+    MAX_UPLOAD_MB: '1',
     ...overrides,
   });

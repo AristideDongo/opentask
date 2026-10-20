@@ -7,6 +7,8 @@ import {
   TaskDetailSchema,
   TaskSchema,
 } from '@opentask/contracts/tasks/task';
+import { toAttachmentDto } from '../../attachments/mappers/attachment.mapper';
+import type { AttachmentRow } from '../../attachments/repository/attachment.repository';
 import type { TaskRow } from '../repository/task.repository';
 
 interface CommentRow {
@@ -14,6 +16,7 @@ interface CommentRow {
   body: string;
   createdAt: Date;
   author: { id: string; name: string } | null;
+  mentions: { user: { id: string; name: string } }[];
 }
 
 const toDay = (d: Date | null) => (d ? d.toISOString().slice(0, 10) : null);
@@ -44,6 +47,7 @@ const commentFields = (c: CommentRow) => ({
   id: c.id,
   author: c.author,
   body: c.body,
+  mentions: c.mentions.map((m) => m.user),
   createdAt: c.createdAt.toISOString(),
 });
 
@@ -60,10 +64,12 @@ export const toTaskDetailDto = (
   projectName: string,
   subtasks: TaskRow[],
   comments: CommentRow[],
+  attachments: AttachmentRow[],
 ): TaskDetail =>
   TaskDetailSchema.parse({
     ...taskFields(t),
     projectName,
     subtasks: subtasks.map(taskFields),
     comments: comments.map(commentFields),
+    attachments: attachments.map(toAttachmentDto),
   });

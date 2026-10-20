@@ -8,6 +8,10 @@ const message = (id: string, createdAt: string, authorId = 'u1'): ChannelMessage
   channelId: 'c1',
   author: { id: authorId, name: authorId, initials: 'U' },
   body: id,
+  segments: [{ type: 'text', text: id }],
+  mentions: [],
+  mentionsMe: false,
+  attachments: [],
   isDeleted: false,
   isEdited: false,
   isMine: false,
@@ -25,6 +29,8 @@ describe('toChannelMessageVM', () => {
     createdAt: '2026-01-01T10:00:00.000Z',
     editedAt: null,
     deletedAt: null,
+    attachments: [],
+    mentions: [],
   } as Message;
 
   it('lets the author edit and delete', () => {

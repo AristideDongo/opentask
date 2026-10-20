@@ -27,7 +27,7 @@ export const DOCS_NAV: DocNavSection[] = [
       { text: 'Membres et rôles', slug: 'user/members-and-roles' },
       { text: 'Projets et tâches', slug: 'user/projects-and-tasks' },
       { text: 'Vues Liste et Kanban', slug: 'user/views' },
-      { text: 'Commentaires, équipes, discussion', slug: 'user/collaboration' },
+      { text: 'Commentaires, mentions, fichiers', slug: 'user/collaboration' },
       { text: 'Jetons d’API', slug: 'user/api-tokens' },
       { text: 'Dépannage', slug: 'user/troubleshooting' },
     ],

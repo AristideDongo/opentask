@@ -8,8 +8,9 @@ Version 0.2.0. Ces limites sont assumées et seront levées selon la [feuille de
 - Les tags sont propres à chaque projet : pas encore de tags partagés par tout le workspace.
 - Les colonnes se réordonnent par le menu « … » (gauche/droite), pas encore par glisser-déposer.
 - Les équipes ne restreignent pas l’accès aux projets : tout membre voit tous les projets du workspace.
-- Discussion : pas encore de messages directs (utilisez un canal privé à deux), de fils de réponse, de mentions `@`, de réactions, de pièces jointes ni d’indicateur « en train d’écrire ».
-- Pas de notifications (internes ou par e-mail) ; seuls les compteurs de messages non lus existent.
+- Discussion : pas encore de messages directs (utilisez un canal privé à deux), de fils de réponse, de réactions ni d’indicateur « en train d’écrire ».
+- Notifications : seules les mentions `@` préviennent, en direct et uniquement si la personne a l’application ouverte ; pas d’historique, de notification par e-mail ni d’alerte d’assignation ou d’échéance.
+- Fichiers : stockés sur le disque du serveur de l’API (pas encore de stockage S3) ; pas d’aperçu des PDF ni de renommage ; un fichier préparé dans un canal mais jamais envoyé reste sur le disque jusqu’au prochain envoi de la même personne, au moins 24 h plus tard.
 - Pas d’export de données depuis l’interface ; la sauvegarde PostgreSQL est la seule méthode d’extraction.
 - Pas de suppression de compte utilisateur ni de changement d’adresse e-mail.
 - Les messages d’erreur métier renvoyés par l’API sont en français ; l’interface anglaise traduit les erreurs génériques par code.

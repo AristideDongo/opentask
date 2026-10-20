@@ -1,11 +1,12 @@
+import type { Attachment } from '@opentask/contracts/attachments/attachment';
 import type {
   Channel,
   ChannelMemberList,
   UpdateChannelInput,
 } from '@opentask/contracts/channels/channel';
-import type { Message, MessagePage } from '@opentask/contracts/channels/message';
+import type { Message, MessageInput, MessagePage } from '@opentask/contracts/channels/message';
 import type { Workspace } from '@opentask/contracts/workspaces/workspace';
-import { apiClient } from '../../../shared/utils/api-client';
+import { apiClient, apiUpload } from '../../../shared/utils/api-client';
 import { MESSAGE_PAGE_SIZE } from '../channel.const';
 
 const channelPath = (workspaceId: string, channelId: string) =>
@@ -26,11 +27,14 @@ export const fetchChannelMembers = (workspaceId: string, channelId: string) =>
 export const markChannelRead = (workspaceId: string, channelId: string) =>
   apiClient<void>(`${channelPath(workspaceId, channelId)}/read`, { method: 'POST' });
 
-export const sendMessage = (workspaceId: string, channelId: string, body: string) =>
+export const sendMessage = (workspaceId: string, channelId: string, input: MessageInput) =>
   apiClient<Message>(`${channelPath(workspaceId, channelId)}/messages`, {
     method: 'POST',
-    body: { body },
+    body: input,
   });
+
+export const uploadAttachment = (workspaceId: string, file: File) =>
+  apiUpload<Attachment>(`/workspaces/${workspaceId}/attachments`, file);
 
 export const editMessage = (
   workspaceId: string,

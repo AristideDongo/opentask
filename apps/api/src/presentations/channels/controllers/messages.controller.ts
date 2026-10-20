@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Query } from
 import { Throttle } from '@nestjs/throttler';
 import {
   type Message,
-  type MessageInput,
+  type MessageData,
+  type MessageEditInput,
+  MessageEditInputSchema,
   MessageInputSchema,
   type MessagePage,
 } from '@opentask/contracts/channels/message';
@@ -39,9 +41,9 @@ export class MessagesController {
     @UserId() userId: string,
     @Param('workspaceId') workspaceId: string,
     @Param('channelId') channelId: string,
-    @Body(new ZodPipe(MessageInputSchema)) input: MessageInput,
+    @Body(new ZodPipe(MessageInputSchema)) input: MessageData,
   ): Promise<Message> {
-    return this.sendMessage.execute(userId, workspaceId, channelId, input.body);
+    return this.sendMessage.execute(userId, workspaceId, channelId, input);
   }
 
   @Patch(':messageId')
@@ -50,7 +52,7 @@ export class MessagesController {
     @Param('workspaceId') workspaceId: string,
     @Param('channelId') channelId: string,
     @Param('messageId') messageId: string,
-    @Body(new ZodPipe(MessageInputSchema)) input: MessageInput,
+    @Body(new ZodPipe(MessageEditInputSchema)) input: MessageEditInput,
   ): Promise<Message> {
     return this.editMessage.execute(userId, workspaceId, channelId, messageId, input.body);
   }

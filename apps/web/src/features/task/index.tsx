@@ -9,6 +9,7 @@ import { useWorkspaceData } from '../../shared/hooks/useWorkspaceData';
 import { CommentThread } from './components/comment-thread';
 import { DescriptionField } from './components/description-field';
 import { SubtaskList } from './components/subtask-list';
+import { TaskAttachments } from './components/task-attachments';
 import { TaskFooter } from './components/task-footer';
 import { TaskProperties } from './components/task-properties';
 import { TitleField } from './components/title-field';
@@ -88,6 +89,7 @@ export default function TaskPanel() {
                 }
               />
             )}
+            <TaskAttachments task={task} canWrite={canWrite} />
             <CommentThread task={task} />
             <TaskFooter
               task={task}

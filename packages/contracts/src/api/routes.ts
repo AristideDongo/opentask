@@ -13,7 +13,13 @@ import {
   CreateChannelInputSchema,
   UpdateChannelInputSchema,
 } from '../channels/channel';
-import { MessageInputSchema, MessagePageSchema, MessageSchema } from '../channels/message';
+import {
+  MessageEditInputSchema,
+  MessageInputSchema,
+  MessagePageSchema,
+  MessageSchema,
+} from '../channels/message';
+import { AttachmentSchema } from '../attachments/attachment';
 import { CursorQuerySchema } from '../common/pagination';
 import {
   AcceptInvitationResultSchema,
@@ -94,10 +100,13 @@ export interface RouteContract {
     | 'projects'
     | 'tasks'
     | 'channels'
+    | 'files'
     | 'realtime'
     | 'system';
   auth: 'session' | 'public';
   tokenAuth?: false;
+  upload?: true;
+  binary?: true;
   body?: z.ZodType;
   query?: z.ZodType;
   response?: z.ZodType;
@@ -726,7 +735,7 @@ export const routes = [
     summary: 'Modifier son message',
     tag: 'channels',
     auth: 'session',
-    body: MessageInputSchema,
+    body: MessageEditInputSchema,
     response: MessageSchema,
   },
   {
@@ -737,6 +746,46 @@ export const routes = [
     tag: 'channels',
     auth: 'session',
     response: MessageSchema,
+  },
+  {
+    method: 'post',
+    path: '/workspaces/:workspaceId/attachments',
+    operationId: 'uploadAttachment',
+    summary: 'Envoyer un fichier (multipart, champ « file ») à joindre ensuite à un message',
+    tag: 'files',
+    auth: 'session',
+    upload: true,
+    response: AttachmentSchema,
+    status: 201,
+  },
+  {
+    method: 'post',
+    path: '/workspaces/:workspaceId/tasks/:taskId/attachments',
+    operationId: 'attachToTask',
+    summary: 'Joindre un fichier ou une image à une tâche (multipart, champ « file »)',
+    tag: 'files',
+    auth: 'session',
+    upload: true,
+    response: AttachmentSchema,
+    status: 201,
+  },
+  {
+    method: 'get',
+    path: '/workspaces/:workspaceId/attachments/:attachmentId/content',
+    operationId: 'downloadAttachment',
+    summary: 'Télécharger un fichier (images affichées, autres fichiers téléchargés)',
+    tag: 'files',
+    auth: 'session',
+    binary: true,
+  },
+  {
+    method: 'delete',
+    path: '/workspaces/:workspaceId/attachments/:attachmentId',
+    operationId: 'deleteAttachment',
+    summary: 'Supprimer un fichier joint (auteur de l’envoi ou admin)',
+    tag: 'files',
+    auth: 'session',
+    status: 204,
   },
   {
     method: 'post',

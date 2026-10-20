@@ -18,6 +18,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 
 ### Ajouté
 
+- **Fichiers et images** dans les canaux (bouton, glisser-déposer, collage d’une capture) et en **pièces jointes des tâches**. Images PNG, JPEG, GIF et WebP affichées dans la page (type vérifié sur le contenu), autres fichiers toujours téléchargés ; droits identiques au canal ou à la tâche. Stockage sur disque (`STORAGE_DIR`, volume `uploads`), taille limitée par `MAX_UPLOAD_MB` (10 Mo). Les sauvegardes archivent aussi les fichiers.
+- **Mentions `@`** dans les messages et les commentaires, avec suggestions au clavier ; la personne mentionnée est prévenue en direct par une notification avec lien. Dans un canal, seules les personnes qui peuvent le lire sont mentionnables.
+- Routes `POST /workspaces/:id/attachments`, `POST /workspaces/:id/tasks/:taskId/attachments`, `GET /workspaces/:id/attachments/:attachmentId/content`, `DELETE /workspaces/:id/attachments/:attachmentId` ; champs `attachments` et `mentions` sur les messages, `mentions` sur les commentaires, `attachments` sur le détail d’une tâche ; événement temps réel `mention.created` ; erreur `PAYLOAD_TOO_LARGE` (413).
 - **Jetons d’API personnels** (Profil → Jetons d’API) : permissions lecture/écriture, durée de 30, 90 ou 365 jours, révocables ; acceptés par l’API via `Authorization: Bearer`.
 - **Serveur MCP** (`apps/mcp`) pour les assistants IA : transports stdio et HTTP, 9 outils de lecture, 5 d’écriture (aucune suppression), 3 prompts, mêmes permissions que l’API. Pris en charge par Claude Code ; ChatGPT en développement (OAuth requis). Service Docker Compose optionnel (`--profile mcp`) (ADR 0011).
 - **Landing page** sur `/` (français et anglais) avec connexion et inscription : présentation, fonctionnalités avec leur statut réel, auto-hébergement, MCP en 3 étapes, installation, communauté et FAQ. Prérendue en HTML statique (ADR 0014).

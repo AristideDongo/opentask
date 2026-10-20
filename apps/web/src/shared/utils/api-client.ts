@@ -47,6 +47,30 @@ export async function apiClient<T = unknown>(
   throw new ApiRequestError(response.status, `HTTP_${response.status}`, response.statusText);
 }
 
+export async function apiUpload<T = unknown>(path: string, file: File): Promise<T> {
+  const form = new FormData();
+  form.append('file', file);
+  let response: Response;
+  try {
+    response = await fetch(`/api/v1${path}`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: form,
+    });
+  } catch {
+    throw new ApiRequestError(0, 'NETWORK_ERROR', 'Network error');
+  }
+  const payload: unknown = await response.json().catch(() => null);
+  if (response.ok) return payload as T;
+  if (payload && typeof payload === 'object' && 'error' in payload) {
+    const { code, message, details } = (
+      payload as { error: { code: string; message: string; details?: FieldError[] } }
+    ).error;
+    throw new ApiRequestError(response.status, code, message, details ?? []);
+  }
+  throw new ApiRequestError(response.status, `HTTP_${response.status}`, response.statusText);
+}
+
 export const isApiError = (error: unknown, status: number): boolean =>
   error instanceof ApiRequestError && error.status === status;
 

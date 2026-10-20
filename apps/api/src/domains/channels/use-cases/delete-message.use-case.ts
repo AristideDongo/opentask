@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import type { Message } from '@opentask/contracts/channels/message';
 import { PrismaService } from '../../../infrastructures/prisma/prisma.service';
 import { RealtimeService } from '../../../infrastructures/realtime/realtime.service';
+import { StorageService } from '../../../infrastructures/storage/storage.service';
+import { AttachmentRepository } from '../../attachments/repository/attachment.repository';
 import { assertIsMember } from '../../workspaces/helpers/access.helper';
 import { MembershipRepository } from '../../workspaces/repository/membership.repository';
 import { MessageNotFoundError } from '../errors/channel.errors';
@@ -21,6 +23,8 @@ export class DeleteMessageUseCase {
     @Inject(MembershipRepository) private readonly memberships: MembershipRepository,
     @Inject(ChannelRepository) private readonly channels: ChannelRepository,
     @Inject(MessageRepository) private readonly messages: MessageRepository,
+    @Inject(AttachmentRepository) private readonly attachments: AttachmentRepository,
+    @Inject(StorageService) private readonly storage: StorageService,
     @Inject(RealtimeService) private readonly realtime: RealtimeService,
   ) {}
 
@@ -30,7 +34,7 @@ export class DeleteMessageUseCase {
     channelId: string,
     messageId: string,
   ): Promise<Message> {
-    const { message, audience } = await this.prisma.transaction(async () => {
+    const { message, audience, storageKeys } = await this.prisma.transaction(async () => {
       const [actor, channel] = await Promise.all([
         this.memberships.find(workspaceId, actorId),
         this.channels.findAccessFacts(workspaceId, channelId, actorId),
@@ -40,13 +44,16 @@ export class DeleteMessageUseCase {
       const current = await this.messages.findById(channelId, messageId);
       if (!current) throw new MessageNotFoundError();
       assertCanDeleteMessage(member, current);
+      const storageKeys = await this.attachments.storageKeys({ messageId });
       const deleted = await this.messages.softDelete(messageId, new Date());
       const memberIds = (await this.channels.members(channelId)).map((m) => m.id);
       return {
         message: toMessageDto(deleted),
         audience: channelAudience(channel.isPrivate, memberIds),
+        storageKeys,
       };
     });
+    await this.storage.remove(storageKeys);
     this.realtime.publish(workspaceId, { type: 'message.deleted', message }, audience);
     return message;
   }

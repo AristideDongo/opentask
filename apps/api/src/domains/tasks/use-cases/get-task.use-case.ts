@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { TaskDetail } from '@opentask/contracts/tasks/task';
+import { AttachmentRepository } from '../../attachments/repository/attachment.repository';
 import { assertIsMember } from '../../workspaces/helpers/access.helper';
 import { MembershipRepository } from '../../workspaces/repository/membership.repository';
 import { TaskNotFoundError } from '../errors/task.errors';
@@ -13,6 +14,7 @@ export class GetTaskUseCase {
     @Inject(MembershipRepository) private readonly memberships: MembershipRepository,
     @Inject(TaskRepository) private readonly tasks: TaskRepository,
     @Inject(CommentRepository) private readonly comments: CommentRepository,
+    @Inject(AttachmentRepository) private readonly attachments: AttachmentRepository,
   ) {}
 
   async execute(actorId: string, workspaceId: string, taskId: string): Promise<TaskDetail> {
@@ -22,11 +24,12 @@ export class GetTaskUseCase {
     ]);
     assertIsMember(membership);
     if (!task) throw new TaskNotFoundError();
-    const [projectName, subtasks, comments] = await Promise.all([
+    const [projectName, subtasks, comments, attachments] = await Promise.all([
       this.tasks.projectName(task.projectId),
       this.tasks.listSubtasks(task.id),
       this.comments.listForTask(task.id),
+      this.attachments.listForTask(task.id),
     ]);
-    return toTaskDetailDto(task, projectName, subtasks, comments);
+    return toTaskDetailDto(task, projectName, subtasks, comments, attachments);
   }
 }

@@ -1,3 +1,4 @@
+import { splitMentions } from '@opentask/contracts/mentions/mention';
 import type { TaskComment } from '@opentask/contracts/tasks/comment';
 import type { Task, TaskDetail } from '@opentask/contracts/tasks/task';
 import { MAX_COMMENT_CHARS, MAX_DESCRIPTION_CHARS } from './limits.const';
@@ -43,10 +44,20 @@ export const toTaskSummary = (task: Task) => ({
   commentCount: task.commentCount,
 });
 
+export function readableMentions(body: string, mentions: { id: string; name: string }[]) {
+  const names = new Map(mentions.map((m) => [m.id, m.name]));
+  return splitMentions(body)
+    .map((segment) =>
+      segment.type === 'text' ? segment.text : `@${names.get(segment.userId) ?? 'inconnu'}`,
+    )
+    .join('');
+}
+
 export const toCommentView = (comment: TaskComment) => ({
   id: comment.id,
   author: comment.author?.name ?? null,
-  body: clip(comment.body, MAX_COMMENT_CHARS),
+  body: clip(readableMentions(comment.body, comment.mentions), MAX_COMMENT_CHARS),
+  mentions: comment.mentions,
   createdAt: comment.createdAt,
 });
 
@@ -59,6 +70,12 @@ export const toTaskDetailView = (task: TaskDetail) => ({
   createdAt: task.createdAt,
   updatedAt: task.updatedAt,
   subtaskList: task.subtasks.map(toTaskSummary),
+  attachments: task.attachments.map((a) => ({
+    fileName: a.fileName,
+    mimeType: a.mimeType,
+    size: a.size,
+    uploadedBy: a.uploadedBy?.name ?? null,
+  })),
 });
 
 export const isOverdue = (task: Pick<Task, 'dueDate' | 'status'>, today: string) =>

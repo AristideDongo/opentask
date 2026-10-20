@@ -167,6 +167,9 @@ importers:
       helmet:
         specifier: 8.3.0
         version: 8.3.0
+      multer:
+        specifier: 2.4.0
+        version: 2.4.0
       nodemailer:
         specifier: 10.1.0
         version: 10.1.0
@@ -192,6 +195,9 @@ importers:
       '@types/express':
         specifier: 5.0.6
         version: 5.0.6
+      '@types/multer':
+        specifier: 2.2.0
+        version: 2.2.0
       '@types/node':
         specifier: 26.6.5
         version: 26.6.5
@@ -2930,6 +2936,9 @@ packages:
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
+
+  '@types/multer@2.2.0':
+    resolution: {integrity: sha512-3U1troeqGV8Ntp7Q3klwf4zr23VEoqYVocYXaswm9+8z3O9UHDYAqLxjJ/h550iRADTjKdOdhhasXw6gD6kYtg==}
 
   '@types/node@24.19.2':
     resolution: {integrity: sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==}
@@ -7403,6 +7412,10 @@ snapshots:
   '@types/lodash@4.17.26': {}
 
   '@types/methods@1.1.4': {}
+
+  '@types/multer@2.2.0':
+    dependencies:
+      '@types/express': 5.0.6
 
   '@types/node@24.19.2':
     dependencies:

@@ -1,14 +1,18 @@
 import { type ReactNode, useCallback, useRef, useState } from 'react';
-import { ToastContext } from '../hooks/useToast';
+import { Link } from 'react-router';
+import { ToastContext, type ToastLink } from '../hooks/useToast';
+
+const TOAST_MS = 4000;
+const TOAST_WITH_LINK_MS = 8000;
 
 export function ToastProvider({ children }: { children: ReactNode }) {
-  const [message, setMessage] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; link?: ToastLink } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const notify = useCallback((next: string) => {
-    setMessage(next);
+  const notify = useCallback((message: string, link?: ToastLink) => {
+    setToast({ message, link });
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => setMessage(null), 4000);
+    timer.current = setTimeout(() => setToast(null), link ? TOAST_WITH_LINK_MS : TOAST_MS);
   }, []);
 
   return (
@@ -19,9 +23,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         role="status"
         className="pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4"
       >
-        {message && (
-          <p className="pointer-events-auto rounded-[var(--radius-control)] bg-ink px-4 py-2.5 text-sm font-medium text-bg shadow-lg">
-            {message}
+        {toast && (
+          <p className="pointer-events-auto flex max-w-xl items-center gap-3 rounded-[var(--radius-control)] bg-ink px-4 py-2.5 text-sm font-medium text-bg shadow-lg">
+            <span>{toast.message}</span>
+            {toast.link && (
+              <Link
+                to={toast.link.to}
+                onClick={() => setToast(null)}
+                className="shrink-0 font-semibold underline underline-offset-2"
+              >
+                {toast.link.label}
+              </Link>
+            )}
           </p>
         )}
       </div>

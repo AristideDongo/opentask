@@ -43,6 +43,10 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       RATE_LIMIT_ENABLED: 'true'
       TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-1}
+      STORAGE_DIR: /app/storage
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-10}
+    volumes:
+      - uploads:/app/storage
 
   mcp:
     build:
@@ -94,5 +98,6 @@ services:
 
 volumes:
   postgres-data:
+  uploads:
   caddy-data:
   caddy-config:

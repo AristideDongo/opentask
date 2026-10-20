@@ -1,7 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
+import type { Prisma } from '@opentask/database/client';
 import { PrismaService } from '../../../infrastructures/prisma/prisma.service';
+import { attachmentInclude } from '../../attachments/repository/attachment.repository';
 
-const authorInclude = { author: { select: { id: true, name: true } } } as const;
+const authorInclude = {
+  author: { select: { id: true, name: true } },
+  attachments: { include: attachmentInclude, orderBy: { createdAt: 'asc' } },
+  mentions: { select: { user: { select: { id: true, name: true } } } },
+} as const;
+
+export type MessageRow = Prisma.MessageGetPayload<{ include: typeof authorInclude }>;
 
 @Injectable()
 export class MessageRepository {
@@ -31,10 +39,19 @@ export class MessageRepository {
     return this.prisma.db.message.update({ where: { id }, data, include: authorInclude });
   }
 
+  reload(id: string) {
+    return this.prisma.db.message.findUniqueOrThrow({ where: { id }, include: authorInclude });
+  }
+
   softDelete(id: string, at: Date) {
     return this.prisma.db.message.update({
       where: { id },
-      data: { deletedAt: at, body: '' },
+      data: {
+        deletedAt: at,
+        body: '',
+        attachments: { deleteMany: {} },
+        mentions: { deleteMany: {} },
+      },
       include: authorInclude,
     });
   }

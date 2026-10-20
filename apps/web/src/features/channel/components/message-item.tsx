@@ -1,29 +1,37 @@
 import { clsx } from 'clsx';
 import { useState } from 'react';
+import { AttachmentList } from '../../../shared/components/attachment-list';
 import { Avatar } from '../../../shared/components/avatar';
 import { Button } from '../../../shared/components/button';
+import { MentionTextarea } from '../../../shared/components/mention-textarea';
+import { RichText } from '../../../shared/components/rich-text';
 import { useI18n } from '../../../shared/hooks/useI18n';
-import type { ChannelMessageVM } from '../channel.types';
+import { fromMentionMarkup, toMentionMarkup } from '../../../shared/mappers/content.mapper';
+import type { MentionRefVM } from '../../../shared/types/content.types';
+import type { ChannelMessageVM, MentionCandidateVM } from '../channel.types';
 import { MessageActions } from './message-actions';
 
 export function MessageItem({
   message,
   compact,
+  candidates,
   onEdit,
   onDelete,
 }: {
   message: ChannelMessageVM;
   compact: boolean;
+  candidates: MentionCandidateVM[];
   onEdit(body: string): Promise<boolean>;
   onDelete(): void;
 }) {
   const { t, formatDate } = useI18n();
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(message.body);
+  const [draft, setDraft] = useState('');
+  const [picked, setPicked] = useState<MentionRefVM[]>([]);
   const time = formatDate(message.createdAt, { hour: '2-digit', minute: '2-digit' });
 
   const saveEdit = async () => {
-    if (await onEdit(draft)) setEditing(false);
+    if (await onEdit(toMentionMarkup(draft.trim(), picked))) setEditing(false);
   };
 
   return (
@@ -31,6 +39,7 @@ export function MessageItem({
       className={clsx(
         'group relative flex gap-3 rounded-[var(--radius-control)] px-2 hover:bg-sunken/70',
         compact ? 'py-0.5' : 'mt-2 py-1.5',
+        message.mentionsMe && !message.isDeleted && 'bg-accent-soft/60',
       )}
     >
       <div className="w-9 shrink-0">
@@ -61,12 +70,15 @@ export function MessageItem({
             <label htmlFor={`edit-${message.id}`} className="sr-only">
               {t('channel.edit')}
             </label>
-            <textarea
+            <MentionTextarea
               id={`edit-${message.id}`}
               value={draft}
+              onValueChange={setDraft}
+              candidates={candidates}
+              picked={picked}
+              onPickedChange={setPicked}
               autoFocus
               maxLength={4000}
-              onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Escape') setEditing(false);
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -86,19 +98,22 @@ export function MessageItem({
             </div>
           </div>
         ) : (
-          <p className="text-[0.9375rem] leading-relaxed break-words whitespace-pre-wrap">
-            {message.body}
-            {message.isEdited && (
-              <span className="ml-1 text-xs text-muted">{t('channel.edited')}</span>
+          <>
+            {message.segments.length > 0 && (
+              <RichText segments={message.segments} className="text-[0.9375rem] leading-relaxed" />
             )}
-          </p>
+            <AttachmentList attachments={message.attachments} imageClassName="max-h-64 max-w-xs" />
+            {message.isEdited && <span className="text-xs text-muted">{t('channel.edited')}</span>}
+          </>
         )}
       </div>
       {(message.canEdit || message.canDelete) && !editing && (
         <MessageActions
           message={message}
           onEdit={() => {
-            setDraft(message.body);
+            const initial = fromMentionMarkup(message.body, message.mentions);
+            setDraft(initial.text);
+            setPicked(initial.picked);
             setEditing(true);
           }}
           onDelete={onDelete}
