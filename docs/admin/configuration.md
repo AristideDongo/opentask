@@ -17,6 +17,8 @@ L’API valide sa configuration au démarrage et s’arrête avec un message exp
 | `LOG_LEVEL`                  |     non     | `info`                               |          | `fatal`, `error`, `warn`, `info`, `debug`, `trace` ou `silent`.                                                                      |
 | `RATE_LIMIT_ENABLED`         |     non     | `true`                               |          | Limitation de débit (connexion, inscription, API).                                                                                   |
 | `TRUST_PROXY_HOPS`           |     non     | `1`                                  |          | Nombre de proxys devant l’API ; une valeur fausse fausse la limitation de débit.                                                     |
+| `STORAGE_DIR`                |     non     | `storage`                            |          | Dossier des fichiers envoyés, relatif au dossier de lancement de l’API. `/app/storage` (volume `uploads`) avec Docker Compose.       |
+| `MAX_UPLOAD_MB`              |     non     | `10`                                 |          | Taille maximale d’un fichier envoyé, en Mo (512 au plus). Au-delà de 24, relevez `client_max_body_size` dans `nginx.conf`.           |
 
 ## Variables du déploiement Docker Compose
 
@@ -30,6 +32,7 @@ L’API valide sa configuration au démarrage et s’arrête avec un message exp
 | `SOURCE_URL`                   | Lien vers le code source affiché dans l’interface (obligation AGPL si vous modifiez OpenTask). |
 | `WEB_BIND`, `WEB_PORT`         | Adresse et port du conteneur web sans le profil `https` (`127.0.0.1:8080`).                    |
 | `OPENTASK_VERSION`             | Étiquette des images construites (`local` par défaut).                                         |
+| `MAX_UPLOAD_MB`                | Taille maximale d’un fichier envoyé, en Mo (`10`).                                             |
 | `MCP_ALLOW_WRITE`              | `false` pour n’exposer que les outils MCP de lecture.                                          |
 | `MCP_ALLOWED_ORIGINS`          | Origines navigateur autorisées sur `/mcp`, séparées par des virgules (vide par défaut).        |
 | `MCP_RATE_LIMIT_PER_MINUTE`    | Requêtes MCP par minute et par jeton (`120`).                                                  |

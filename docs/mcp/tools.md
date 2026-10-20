@@ -26,7 +26,7 @@ Exigent un jeton avec la permission `write`, un rôle suffisant dans le workspac
 | `opentask_update_task`        | Modifie titre, description, priorité ou échéance — seuls les champs fournis changent | `PATCH /workspaces/:id/tasks/:tid`         |
 | `opentask_change_task_status` | Déplace la tâche vers une colonne (`columnId`) ou un type de colonne (`status`)      | `PATCH /workspaces/:id/tasks/:tid`         |
 | `opentask_assign_task`        | Assigne la tâche à un membre du workspace, ou retire l’assignation (`null`)          | `PATCH /workspaces/:id/tasks/:tid`         |
-| `opentask_add_comment`        | Ajoute un commentaire signé par l’utilisateur du jeton                               | `POST /workspaces/:id/tasks/:tid/comments` |
+| `opentask_add_comment`        | Ajoute un commentaire signé par l’utilisateur du jeton ; `<@id>` mentionne un membre | `POST /workspaces/:id/tasks/:tid/comments` |
 
 Chaque outil d’écriture retourne la ressource telle que l’API l’a enregistrée ; en cas de refus, il retourne l’erreur de l’API (`FORBIDDEN`, `NOT_FOUND`, `VALIDATION_FAILED`…) et rien n’est modifié.
 

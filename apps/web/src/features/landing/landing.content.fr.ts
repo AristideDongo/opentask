@@ -80,7 +80,7 @@ export const landingFr: LandingContent = {
       },
       {
         title: 'Commentaires et journal d’audit',
-        body: 'Discutez d’une tâche par commentaires ; les opérations d’administration sont tracées dans le journal du workspace.',
+        body: 'Discutez d’une tâche par commentaires, mentionnez un collègue avec @ et joignez des images ou des fichiers ; les opérations d’administration sont tracées dans le journal du workspace.',
         status: 'available',
       },
       {
@@ -90,7 +90,7 @@ export const landingFr: LandingContent = {
       },
       {
         title: 'Discussion en temps réel',
-        body: 'Canaux publics ou privés pour échanger avec l’équipe, mis à jour instantanément.',
+        body: 'Canaux publics ou privés pour échanger avec l’équipe, mis à jour instantanément, avec images, fichiers et mentions @ qui préviennent la personne concernée.',
         status: 'available',
       },
       {

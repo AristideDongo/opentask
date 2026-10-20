@@ -76,7 +76,7 @@ export const landingEn: LandingContent = {
       },
       {
         title: 'Comments and audit log',
-        body: 'Discuss a task in comments; administrative actions are recorded in the workspace log.',
+        body: 'Discuss a task in comments, mention a teammate with @ and attach images or files; administrative actions are recorded in the workspace log.',
         status: 'available',
       },
       {
@@ -86,7 +86,7 @@ export const landingEn: LandingContent = {
       },
       {
         title: 'Real-time chat',
-        body: 'Public or private channels to talk with your team, updated instantly.',
+        body: 'Public or private channels to talk with your team, updated instantly, with images, files and @mentions that alert the person mentioned.',
         status: 'available',
       },
       {

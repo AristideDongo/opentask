@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { AttachmentRepository } from '../attachments/repository/attachment.repository';
+import { MentionRepository } from '../mentions/repository/mention.repository';
 import { WorkspacesDomainModule } from '../workspaces/workspaces.module';
 import { ChannelRepository } from './repository/channel.repository';
 import { MessageRepository } from './repository/message.repository';
@@ -34,7 +36,13 @@ const useCases = [
 
 @Module({
   imports: [WorkspacesDomainModule],
-  providers: [ChannelRepository, MessageRepository, ...useCases],
+  providers: [
+    ChannelRepository,
+    MessageRepository,
+    AttachmentRepository,
+    MentionRepository,
+    ...useCases,
+  ],
   exports: useCases,
 })
 export class ChannelsDomainModule {}

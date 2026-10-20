@@ -1,4 +1,5 @@
 import type { TaskPriority, TaskStatus } from '@opentask/contracts/tasks/status';
+import type { AttachmentVM, TextSegmentVM } from './content.types';
 import type { PersonVM } from './person.types';
 import type { LabelVM, ProgressVM } from './project.types';
 
@@ -32,6 +33,7 @@ export interface CommentVM {
   id: string;
   author: PersonVM | null;
   body: string;
+  segments: TextSegmentVM[];
   createdAt: string;
 }
 
@@ -39,5 +41,6 @@ export interface TaskDetailVM extends TaskVM {
   projectName: string;
   subtaskList: TaskVM[];
   comments: CommentVM[];
+  attachments: AttachmentVM[];
   canDelete: boolean;
 }

@@ -38,21 +38,43 @@ function operation(route: RouteContract) {
     tags: [route.tag],
     security: securityFor(route),
     parameters: [...params, ...query],
-    ...(route.body
+    ...(route.upload
       ? {
           requestBody: {
             required: true,
-            content: { 'application/json': { schema: toSchema(route.body, 'input') } },
+            content: {
+              'multipart/form-data': {
+                schema: {
+                  type: 'object',
+                  required: ['file'],
+                  properties: { file: { type: 'string', format: 'binary' } },
+                },
+              },
+            },
           },
         }
-      : {}),
-    responses: {
-      [status]: route.response
+      : route.body
         ? {
-            description: 'Succès',
-            content: { 'application/json': { schema: toSchema(route.response, 'output') } },
+            requestBody: {
+              required: true,
+              content: { 'application/json': { schema: toSchema(route.body, 'input') } },
+            },
           }
-        : { description: 'Succès' },
+        : {}),
+    responses: {
+      [status]: route.binary
+        ? {
+            description: 'Contenu du fichier',
+            content: {
+              'application/octet-stream': { schema: { type: 'string', format: 'binary' } },
+            },
+          }
+        : route.response
+          ? {
+              description: 'Succès',
+              content: { 'application/json': { schema: toSchema(route.response, 'output') } },
+            }
+          : { description: 'Succès' },
       '400': errorResponse('Requête invalide'),
       ...(route.auth === 'session' ? { '401': errorResponse('Session absente ou expirée') } : {}),
       '403': errorResponse('Action interdite pour ce rôle'),

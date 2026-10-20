@@ -14,6 +14,7 @@ import { LOGGER, type Logger } from './infrastructures/logger/logger.service';
 import { ApiTokensDomainModule } from './domains/api-tokens/api-tokens.module';
 import { AuthenticateApiTokenUseCase } from './domains/api-tokens/use-cases/authenticate-api-token.use-case';
 import { AccountModule } from './presentations/account/account.module';
+import { AttachmentsModule } from './presentations/attachments/attachments.module';
 import { ChannelsModule } from './presentations/channels/channels.module';
 import { InvitationsModule } from './presentations/invitations/invitations.module';
 import { ProjectsModule } from './presentations/projects/projects.module';
@@ -62,6 +63,7 @@ export class AppModule {
         ProjectsModule,
         TasksModule,
         ChannelsModule,
+        AttachmentsModule,
         RealtimeModule,
       ],
       providers: [

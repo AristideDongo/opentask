@@ -20,6 +20,8 @@ Champs d’une tâche :
 | Personne assignée | Un membre du workspace                                             |
 | Tags              | Jusqu’à 10 tags du projet                                          |
 
+Le panneau d’une tâche contient aussi ses **pièces jointes** (images et fichiers, par bouton ou glisser-déposer) et ses commentaires, où l’on peut **mentionner** quelqu’un avec `@` : voir [Commentaires, mentions, fichiers et discussion](collaboration.md).
+
 Les **sous-tâches** se créent dans le panneau d’une tâche ; les cocher les déplace dans la première colonne de type « Terminé ».
 
 ## Mes tâches

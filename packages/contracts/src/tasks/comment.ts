@@ -5,6 +5,7 @@ export const TaskCommentSchema = z.object({
   id: IdSchema,
   author: RefSchema.nullable(),
   body: z.string(),
+  mentions: z.array(RefSchema),
   createdAt: IsoDateTimeSchema,
 });
 export type TaskComment = z.infer<typeof TaskCommentSchema>;

@@ -3,6 +3,7 @@ import { Outlet, useLoaderData, useMatches, useParams } from 'react-router';
 import { RealtimeProvider } from '../../shared/components/realtime-provider';
 import { useI18n } from '../../shared/hooks/useI18n';
 import { useOptionalWorkspaceData } from '../../shared/hooks/useWorkspaceData';
+import { MentionNotifier } from './components/mention-notifier';
 import { MobileTopBar } from './components/mobile-top-bar';
 import { Sidebar } from './components/sidebar';
 import { useCloseOnNavigation } from './hooks/useCloseOnNavigation';
@@ -29,6 +30,7 @@ export default function AppShell() {
       meId={me.id}
       channels={workspaceData?.channels}
     >
+      {workspaceData && workspaceId && <MentionNotifier workspaceId={workspaceId} />}
       <div className="min-h-dvh lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
         <a
           href="#main"

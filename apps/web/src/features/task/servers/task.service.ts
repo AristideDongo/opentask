@@ -1,7 +1,8 @@
+import type { Attachment } from '@opentask/contracts/attachments/attachment';
 import type { TaskComment } from '@opentask/contracts/tasks/comment';
 import type { TaskDetail } from '@opentask/contracts/tasks/task';
 import type { Workspace } from '@opentask/contracts/workspaces/workspace';
-import { apiClient } from '../../../shared/utils/api-client';
+import { apiClient, apiUpload } from '../../../shared/utils/api-client';
 
 export const fetchTaskDetail = (workspaceId: string, taskId: string) =>
   apiClient<TaskDetail>(`/workspaces/${workspaceId}/tasks/${taskId}`);
@@ -17,3 +18,9 @@ export const commentTask = (workspaceId: string, taskId: string, body: string) =
     method: 'POST',
     body: { body },
   });
+
+export const uploadTaskAttachment = (workspaceId: string, taskId: string, file: File) =>
+  apiUpload<Attachment>(`/workspaces/${workspaceId}/tasks/${taskId}/attachments`, file);
+
+export const deleteAttachment = (workspaceId: string, attachmentId: string) =>
+  apiClient<void>(`/workspaces/${workspaceId}/attachments/${attachmentId}`, { method: 'DELETE' });

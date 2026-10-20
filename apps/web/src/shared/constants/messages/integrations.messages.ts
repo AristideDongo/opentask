@@ -1,4 +1,20 @@
 export const frIntegrations = {
+  'files.title': 'Pièces jointes',
+  'files.attach': 'Joindre des fichiers',
+  'files.empty': 'Aucune pièce jointe.',
+  'files.dropHint': 'Glissez des images ou des fichiers ici, ou utilisez le bouton.',
+  'files.uploading': 'Envoi de {name}…',
+  'files.failed': 'Échec de l’envoi de {name} : {reason}',
+  'files.remove': 'Retirer {name}',
+  'files.delete': 'Supprimer {name}',
+  'files.deleteConfirm': 'Supprimer « {name} » ?',
+  'files.download': 'Télécharger {name}',
+  'files.deleted': 'Fichier supprimé.',
+  'mention.suggestions': 'Personnes à mentionner',
+  'mention.hint': 'Tapez @ pour mentionner quelqu’un.',
+  'mention.inMessage': '{name} vous a mentionné dans #{channel}',
+  'mention.inComment': '{name} vous a mentionné sur « {task} »',
+  'mention.open': 'Voir',
   'tokens.title': 'Jetons d’API',
   'tokens.intro':
     'Un jeton permet à un outil (serveur MCP pour Claude ou ChatGPT, script) d’agir en votre nom, avec vos droits. Il ne donne jamais plus d’accès que votre compte.',
@@ -23,6 +39,22 @@ export const frIntegrations = {
 };
 
 export const enIntegrations: Record<keyof typeof frIntegrations, string> = {
+  'files.title': 'Attachments',
+  'files.attach': 'Attach files',
+  'files.empty': 'No attachments.',
+  'files.dropHint': 'Drop images or files here, or use the button.',
+  'files.uploading': 'Uploading {name}…',
+  'files.failed': 'Could not upload {name}: {reason}',
+  'files.remove': 'Remove {name}',
+  'files.delete': 'Delete {name}',
+  'files.deleteConfirm': 'Delete “{name}”?',
+  'files.download': 'Download {name}',
+  'files.deleted': 'File deleted.',
+  'mention.suggestions': 'People to mention',
+  'mention.hint': 'Type @ to mention someone.',
+  'mention.inMessage': '{name} mentioned you in #{channel}',
+  'mention.inComment': '{name} mentioned you on “{task}”',
+  'mention.open': 'View',
   'tokens.title': 'API tokens',
   'tokens.intro':
     'A token lets a tool (MCP server for Claude or ChatGPT, script) act on your behalf, with your permissions. It never grants more access than your account.',

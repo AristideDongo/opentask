@@ -1,7 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { extractMentionIds } from '@opentask/contracts/mentions/mention';
 import type { TaskComment } from '@opentask/contracts/tasks/comment';
 import { PrismaService } from '../../../infrastructures/prisma/prisma.service';
 import { EVERYONE, RealtimeService } from '../../../infrastructures/realtime/realtime.service';
+import { mentionExcerpt, newlyMentioned } from '../../mentions/helpers/mention.helper';
+import { MentionRepository } from '../../mentions/repository/mention.repository';
 import { assertCan, assertIsMember } from '../../workspaces/helpers/access.helper';
 import { MembershipRepository } from '../../workspaces/repository/membership.repository';
 import { TaskNotFoundError } from '../errors/task.errors';
@@ -16,6 +19,7 @@ export class CommentTaskUseCase {
     @Inject(MembershipRepository) private readonly memberships: MembershipRepository,
     @Inject(TaskRepository) private readonly tasks: TaskRepository,
     @Inject(CommentRepository) private readonly comments: CommentRepository,
+    @Inject(MentionRepository) private readonly mentions: MentionRepository,
     @Inject(RealtimeService) private readonly realtime: RealtimeService,
   ) {}
 
@@ -33,18 +37,31 @@ export class CommentTaskUseCase {
       const member = assertIsMember(actor);
       if (!task) throw new TaskNotFoundError();
       assertCan(member.role, 'task.comment');
-      return {
-        task,
-        comment: toCommentDto(
-          await this.comments.create({ workspaceId, taskId, authorId: actorId, body }),
-        ),
-      };
+      const created = await this.comments.create({ workspaceId, taskId, authorId: actorId, body });
+      const candidates = await this.mentions.candidates(workspaceId, extractMentionIds(body));
+      await this.mentions.setCommentMentions(
+        created.id,
+        candidates.map((c) => c.id),
+      );
+      return { task, comment: toCommentDto(await this.comments.reload(created.id)) };
     });
     this.realtime.publish(
       workspaceId,
       { type: 'task.commented', projectId: task.projectId, taskId, comment },
       EVERYONE,
     );
+    for (const mentioned of newlyMentioned([], comment.mentions, actorId)) {
+      this.realtime.publish(
+        workspaceId,
+        {
+          type: 'mention.created',
+          by: comment.author ?? { id: actorId, name: '' },
+          excerpt: mentionExcerpt(comment.body, comment.mentions),
+          target: { kind: 'comment', projectId: task.projectId, taskId, taskTitle: task.title },
+        },
+        { userIds: [mentioned.id] },
+      );
+    }
     return comment;
   }
 }

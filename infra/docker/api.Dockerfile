@@ -17,6 +17,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 RUN addgroup -S opentask && adduser -S opentask -G opentask
 COPY --from=build --chown=opentask:opentask /out ./
+RUN mkdir -p /app/storage && chown opentask:opentask /app/storage
 USER opentask
 EXPOSE 4000
 HEALTHCHECK --interval=15s --timeout=3s --start-period=20s --retries=5 \

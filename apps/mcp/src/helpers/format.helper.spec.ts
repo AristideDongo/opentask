@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clip, isOverdue, pageNote, paginate } from './format.helper';
+import { clip, isOverdue, pageNote, paginate, readableMentions } from './format.helper';
 
 describe('paginate', () => {
   const items = Array.from({ length: 30 }, (_, i) => i);
@@ -32,5 +32,13 @@ describe('isOverdue', () => {
     expect(isOverdue({ dueDate: '2026-10-01', status: 'done' }, '2026-10-14')).toBe(false);
     expect(isOverdue({ dueDate: '2026-10-14', status: 'todo' }, '2026-10-14')).toBe(false);
     expect(isOverdue({ dueDate: null, status: 'todo' }, '2026-10-14')).toBe(false);
+  });
+});
+
+describe('readableMentions', () => {
+  it('replaces mention tokens with names', () => {
+    expect(readableMentions('Merci <@u1> et <@u2>', [{ id: 'u1', name: 'Bob' }])).toBe(
+      'Merci @Bob et @inconnu',
+    );
   });
 });

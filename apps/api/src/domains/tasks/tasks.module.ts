@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { AttachmentRepository } from '../attachments/repository/attachment.repository';
+import { MentionRepository } from '../mentions/repository/mention.repository';
 import { ProjectsDomainModule } from '../projects/projects.module';
 import { WorkspacesDomainModule } from '../workspaces/workspaces.module';
 import { CommentRepository } from './repository/comment.repository';
@@ -23,7 +25,13 @@ const useCases = [
 
 @Module({
   imports: [WorkspacesDomainModule, ProjectsDomainModule],
-  providers: [TaskRepository, CommentRepository, ...useCases],
-  exports: useCases,
+  providers: [
+    TaskRepository,
+    CommentRepository,
+    AttachmentRepository,
+    MentionRepository,
+    ...useCases,
+  ],
+  exports: [TaskRepository, ...useCases],
 })
 export class TasksDomainModule {}

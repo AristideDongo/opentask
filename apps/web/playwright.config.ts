@@ -1,3 +1,5 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { defineConfig, devices } from '@playwright/test';
 
 const E2E_DATABASE_URL =
@@ -33,6 +35,7 @@ export default defineConfig({
         RATE_LIMIT_ENABLED: 'false',
         TRUST_PROXY_HOPS: '1',
         SMTP_URL: '',
+        STORAGE_DIR: join(tmpdir(), 'opentask-e2e-storage'),
       },
     },
     {

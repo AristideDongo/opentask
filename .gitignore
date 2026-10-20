@@ -13,6 +13,7 @@ packages/database/src/generated/
 apps/web/test-results/
 apps/web/playwright-report/
 backups/
+apps/api/storage/
 .DS_Store
 .agents/
 skills-lock.json

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { MessageSchema } from '../channels/message';
-import { IdSchema } from '../common/primitives';
+import { IdSchema, RefSchema } from '../common/primitives';
 import { TaskCommentSchema } from '../tasks/comment';
 
 export const RealtimeEventSchema = z.discriminatedUnion('type', [
@@ -20,6 +20,25 @@ export const RealtimeEventSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('project.changed'), projectId: IdSchema }),
   z.object({ type: z.literal('team.changed'), teamId: IdSchema }),
   z.object({ type: z.literal('members.changed') }),
+  z.object({
+    type: z.literal('mention.created'),
+    by: RefSchema,
+    excerpt: z.string(),
+    target: z.discriminatedUnion('kind', [
+      z.object({
+        kind: z.literal('message'),
+        channelId: IdSchema,
+        channelName: z.string(),
+        messageId: IdSchema,
+      }),
+      z.object({
+        kind: z.literal('comment'),
+        projectId: IdSchema,
+        taskId: IdSchema,
+        taskTitle: z.string(),
+      }),
+    ]),
+  }),
 ]);
 export type RealtimeEvent = z.infer<typeof RealtimeEventSchema>;
 export type RealtimeEventType = RealtimeEvent['type'];

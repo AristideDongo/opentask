@@ -1,3 +1,4 @@
+import { AttachmentSchema } from '../attachments/attachment';
 import { z } from 'zod';
 import { IdSchema, IsoDateTimeSchema, RefSchema, nonEmptyPatch } from '../common/primitives';
 import { LabelSchema } from '../projects/label';
@@ -51,6 +52,7 @@ export const TaskDetailSchema = TaskSchema.extend({
   projectName: z.string(),
   subtasks: z.array(TaskSchema),
   comments: z.array(TaskCommentSchema),
+  attachments: z.array(AttachmentSchema),
 });
 export type TaskDetail = z.infer<typeof TaskDetailSchema>;
 

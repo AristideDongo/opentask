@@ -4,6 +4,7 @@ import { decideTaskDeletion } from '@opentask/contracts/workspaces/permissions';
 import type { WorkspaceRole } from '@opentask/contracts/workspaces/roles';
 import type { CommentVM, MyTaskVM, TaskDetailVM, TaskVM } from '../types/task.types';
 import { todayIso } from '../utils/date';
+import { toAttachmentVM, toTextSegments } from './content.mapper';
 import { toPersonVM } from './person.mapper';
 import { toLabelVM } from './project.mapper';
 
@@ -31,10 +32,11 @@ export const toTaskVM = (t: Task): TaskVM => ({
 
 export const toMyTaskVM = (t: MyTask): MyTaskVM => ({ ...toTaskVM(t), projectName: t.projectName });
 
-export const toCommentVM = (c: TaskComment): CommentVM => ({
+export const toCommentVM = (c: TaskComment, meId = ''): CommentVM => ({
   id: c.id,
   author: c.author ? toPersonVM(c.author) : null,
   body: c.body,
+  segments: toTextSegments(c.body, c.mentions, meId),
   createdAt: c.createdAt,
 });
 
@@ -45,6 +47,7 @@ export const toTaskDetailVM = (
   ...toTaskVM(t),
   projectName: t.projectName,
   subtaskList: t.subtasks.map(toTaskVM),
-  comments: t.comments.map(toCommentVM),
+  comments: t.comments.map((c) => toCommentVM(c, actor.userId)),
+  attachments: t.attachments.map((a) => toAttachmentVM(a, actor)),
   canDelete: decideTaskDeletion(actor, { createdById: t.createdBy?.id ?? null }).allowed,
 });
