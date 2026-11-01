@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:24-alpine AS base
+FROM node:26-alpine AS base
 RUN npm install -g pnpm@12.3.4
 WORKDIR /repo
 
@@ -10,7 +10,7 @@ RUN pnpm --filter @opentask/mcp build
 RUN pnpm --filter @opentask/mcp --config.public-hoist-pattern='*' deploy --prod --legacy /out \
  && cp -r apps/mcp/dist /out/dist
 
-FROM node:24-alpine AS runtime
+FROM node:26-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 RUN addgroup -S opentask && adduser -S opentask -G opentask
